@@ -8,12 +8,13 @@ class SearchResult extends Component {
         super(props)
         this.state = {
             results:[],
-            unitdetails:[]
+			unitdetails:[],
+			nearLocations:[],
         }
     }
 
     componentDidMount() {
-        axios.get("/search/all")
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/all")
         .then(response =>{ 
             console.log(response)
             this.setState({results: response.data.siteLocations})
@@ -21,7 +22,7 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-        axios.get("/units/L079")
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -33,10 +34,12 @@ class SearchResult extends Component {
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         alert("I'm working on"+zip);
-        axios.get("/search/"+zip)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
         .then(response =>{ 
-            console.log(response)
-            this.setState({results: response.data.siteLocations})
+			console.log(response)
+			console.log(response.data.siteLocations[0].content.gvsnearsites)
+			this.setState({results: response.data.siteLocations})
+			this.setState({nearLocations: response.data.siteLocations[0].content.gvsnearsites})
         })
         .catch(error => {
             console.log(error)
@@ -45,7 +48,7 @@ class SearchResult extends Component {
 
     getDetils = (locationCode)=>{
         alert("I'm working on"+locationCode);
-        axios.get("/units/"+locationCode)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -57,7 +60,7 @@ class SearchResult extends Component {
      
     render(){
         
-        const { results, unitdetails } = this.state
+        const { results, unitdetails, nearLocations } = this.state
         return(
             
             <div>
@@ -163,26 +166,26 @@ class SearchResult extends Component {
 									</div>
 									</div>
 									
-									<div className="row other-locations m-0">
+									<div className="row other-locations m-0 ">
 										<div className="col-md-12 col-lg-12">
 										<h4 className="text-center">Other Locations Near You</h4>
 									</div>
-										<div className="col-lg-4 col-md-4 col-sm-4 p-2">
+									{
+                        nearLocations.length ?
+						nearLocations.map(location => 
+							<div className="row" key= {location.siteLocation.siteID}>
+										<div className="col-lg-4 col-md-4 col-sm-4 p-2" >
 											<img src={require('../assets/img/L009_1 1.png').default} className="img-responsive img-bdr" alt=""/>
 										</div>
 										<div className="col-lg-8 col-md-8 col-sm-8">
-											<h6>5656 N IH 35<br/>
-											Austin, TX 78751</h6>
-											<p>Distance: 0.56 miles</p>
+											<h6>{location.siteLocation.address1}<br/>
+											{location.siteLocation.city}</h6>
+											<p>Distance: {location.distance} miles</p>
 										</div>
-										<div className="col-lg-4 col-md-4 col-sm-4 p-2">
-											<img src={require('../assets/img/L009_1 1.png').default} className="img-responsive img-bdr" alt=""/>
 										</div>
-										<div className="col-lg-8 col-md-8 col-sm-8">
-											<h6>5656 N IH 35<br/>
-											Austin, TX 78751</h6>
-											<p>Distance: 0.56 miles</p>
-										</div>
+						) : 
+						null
+					}
 									</div>
 									
 									
