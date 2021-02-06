@@ -16,7 +16,7 @@ class SearchResult extends Component {
     }
 	
     componentDidMount(props) {
-        axios.get("/search/"+this.props.match.params.zip)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
             this.setState({results: response.data.siteLocations})
@@ -24,7 +24,7 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-        axios.get("/api/units/L079")
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/api/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -36,7 +36,7 @@ class SearchResult extends Component {
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         //alert("I'm working on"+zip);
-        axios.get("/search/"+zip)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
         .then(response =>{ 
 			console.log(response)
 			console.log(response.data.siteLocations[0].content.gvsnearsites)
@@ -56,7 +56,7 @@ class SearchResult extends Component {
 
     getDetils = (locationCode)=>{
         //alert("I'm working on"+locationCode);
-        axios.get("/units/"+locationCode)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})

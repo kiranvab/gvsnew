@@ -333,6 +333,35 @@ blockquote p {
 .home-banner {
   background:url('./img/new-banner-1.jpg') no-repeat;
  }
+ @media only screen and (max-width: 600px) {
+  .footer-icons img
+{
+	width: 70% !important;
+    padding-left: 2em !important;
+    padding-right: 1em !important;
+    padding-top: 2em !important;
+}
+.footer-icons:before {
+    content: "";
+    position: absolute !important;
+    top: 0px !important;
+    border: 2px solid #38a61d !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 30px 0 30px !important;
+    right: 0px !important;
+   }
+.footer-icons:after {
+    content: "";
+    position: absolute !important;
+    top: -15px !important;
+    border: 2px solid #fff !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 30px 0 30px !important;
+    left: 13px !important;
+}
+}
 @media (max-width:575px){.hidden-xs-down{display:none!important}}
 @media (min-width:576px){.hidden-sm-up{display:none!important}}
 @media (max-width:767px){.hidden-sm-down{display:none!important}}
