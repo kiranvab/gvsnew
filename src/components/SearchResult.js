@@ -16,7 +16,7 @@ class SearchResult extends Component {
     }
 	
     componentDidMount(props) {
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
+        axios.get("/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
             this.setState({results: response.data.siteLocations})
@@ -24,7 +24,7 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
+        axios.get("/api/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -36,7 +36,7 @@ class SearchResult extends Component {
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         //alert("I'm working on"+zip);
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
+        axios.get("/search/"+zip)
         .then(response =>{ 
 			console.log(response)
 			console.log(response.data.siteLocations[0].content.gvsnearsites)
@@ -56,7 +56,7 @@ class SearchResult extends Component {
 
     getDetils = (locationCode)=>{
         //alert("I'm working on"+locationCode);
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
+        axios.get("/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -255,9 +255,9 @@ class SearchResult extends Component {
 											<p className="review-txt">86 Reviews</p>
 													</div>
 													<div className="col-md-7 col-lg-7 listing-content">
-														<p>New Customer: <span className="phone">{result.phone}</span><br/>6:00am - 10:00pm </p>
-														<p>Storage Gate Hours<br/>Mon-Sun : 6:00am - 10:00pm </p>
-														<p>Storage Office Hours<br/>Mon-Fri : 9:30am - 10:00pm Mon-Fri : 9:30am - 10:00pm Mon-Fri : 9:30am - 10:00pm </p>
+														<p>New Customer: <span className="phone"><span style={{color:"green"}}>{result.phone}</span></span></p>
+														<p>Storage Gate Hours<br/><span style={{color:"green"}}>{result.content.accesshours}</span> </p>
+														<p>Storage Office Hours<br/><span style={{color:"green"}}>{result.content.officehours}</span></p>
                                                         
 													</div>
 												</div>
@@ -273,11 +273,81 @@ class SearchResult extends Component {
                             null
                         }
                        </div>
-								<div className="col-md-12 col-lg-12">
+					   <div className="col-md-12 col-lg-12">
 									<img src={require('../assets/css/img/Group 52.png').default} className="img-responsive" alt=""/>
-								</div>
-							
-								<div className="col-md-12 col-lg-12 sizes-block">
+						</div>
+					   <div className="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab" style={{marginTop:"5%"}}>
+                 			<div className="col-lg-12 col-md-12 p-0">
+                 	<div className="row">
+                 		<div className="col-md-6 col-lg-6">
+                 			<h4>Narrow Your Search</h4>
+                 		</div>
+                 		<div className="col-md-6 col-lg-6 text-right text-12">
+                 			<p>Unit Size Guide</p>
+                 		</div>
+                 	</div>
+                 	<div className="row narrow-search-block">
+    			<div className="col-md-2 col-lg-2 p-1">
+				    <select className="form-control select-style" id="Features">
+				      <option>Features</option>
+				      <option>Features</option>
+				      <option>Features</option>
+				      <option>Features</option>
+				      <option>Features</option>
+				    </select>
+				</div>
+				 		<div className="col-md-3 col-lg-3 p-1">
+		                 	<select className="form-control select-style" id="vehicle-storage">
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						    </select>
+                 		</div>
+                 		<div className="col-md-3 col-lg-3"></div>
+                 		<div className="col-md-4 col-lg-4 p-1 text-right">
+							<div className="form-group row">
+							<label for="inputPassword" className="col-sm-4 col-form-label">Sort by</label>
+							<div className="col-sm-8">
+							<select className="form-control select-style" id="sort">
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						      <option>Vehicle Storage</option>
+						    </select>
+							</div>
+							</div>
+                 		</div>
+                 	
+                 		<div className="col-md-12 col-lg-12">
+                 		<div className="row">
+                 				<div className="col-md-2 col-lg-2 text-12 pad-top-25-l-10 p-0">
+                 				<strong>Filter Unit by Size</strong>
+                 				</div>
+                 				<div className="col-md-10 col-lg-10">
+                 					<div className="row">
+                 						<div className="col-md-3 col-lg-3 p-1 mt-3">
+											<button className="btn btn-block cust-btn">All Sizes</button>
+										</div>
+										<div className="col-md-3 col-lg-3 p-1  mt-3">
+											<button className="btn btn-block cust-btn">Small</button>
+										</div>
+										<div className="col-md-3 col-lg-3 p-1 mt-3">
+											<button className="btn btn-block cust-btn">Medium</button>
+										</div>
+										<div className="col-md-3 col-lg-3 p-1 mt-3">
+											<button className="btn btn-block cust-btn">Large</button>
+										</div>
+                 					</div>
+                 				</div>
+                 		</div>
+                 	</div>
+					 </div>
+					 </div>
+					 </div>
+							<div className="col-md-12 col-lg-12 sizes-block">
 									<h3>Most Popular Sizes</h3>
 									<div className="row bdr-btm">										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
@@ -352,7 +422,7 @@ class SearchResult extends Component {
                                     unitdetails.map(detail => 
 									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
 										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
@@ -367,7 +437,7 @@ class SearchResult extends Component {
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
