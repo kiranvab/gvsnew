@@ -1,8 +1,10 @@
+
 import { Component } from "react";
 import axios from 'axios';
 import '../assets/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import { Link } from 'react-router-dom';
+import { Button, Navbar,Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
 class SearchResult extends Component {
     constructor(props) {
         super(props)
@@ -10,11 +12,11 @@ class SearchResult extends Component {
             results:[],
 			unitdetails:[],
 			nearLocations:[],
-        }
+		}
     }
-
-    componentDidMount() {
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/all")
+	
+    componentDidMount(props) {
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
             this.setState({results: response.data.siteLocations})
@@ -33,7 +35,7 @@ class SearchResult extends Component {
     }
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
-        alert("I'm working on"+zip);
+        //alert("I'm working on"+zip);
         axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
         .then(response =>{ 
 			console.log(response)
@@ -44,10 +46,16 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-    }
+	}
+	openFilterSearch = () => {
+		document.getElementById("filter_search").style.display = "block"
+	}
+	closeFilterSearch=()=> {
+		document.getElementById("filter_search").style.display = "none"
+	}
 
     getDetils = (locationCode)=>{
-        alert("I'm working on"+locationCode);
+        //alert("I'm working on"+locationCode);
         axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
@@ -65,62 +73,47 @@ class SearchResult extends Component {
             
             <div>
                 <body className="green-skin">
-            <script>
-            
-            </script>
-                
+                 
                <div className="header header-light">
 				<div className="container">
-					<nav id="navigation" className="navigation navigation-landscape">
-						<div className="nav-header">
-							<a className="nav-brand" href="!#">
-                            <img src={require('./logo.png').default} className="logo" alt="" />
-							</a>
-							<div className="nav-toggle"></div>
-						</div>
-						<div className="nav-menus-wrapper">
-							<ul className="nav-menu">
-								<li className="active"><a href="!#">Locations</a></li>
-								<li><a href="!#">Storage Options<span className="submenu-indicator"></span></a>
-									<ul className="nav-dropdown nav-submenu">
-										<li><a href="!#">Storage Options</a></li>
-										<li><a href="!#">Storage Options</a></li>
-										<li><a href="!#">Storage Options</a></li>
-										<li><a href="!#">Storage Options</a></li>
-										<li><a href="!#">Storage Options</a></li>
-									</ul>
-								</li>
-								<li><a href="!#">Storage Tools<span className="submenu-indicator"></span></a>
-									<ul className="nav-dropdown nav-submenu">
-										<li><a href="!#">Storage Tools</a></li>
-										<li><a href="!#">Storage Tools</a></li>
-										<li><a href="!#">Storage Tools</a></li>
-										<li><a href="!#">Storage Tools</a></li>
-										<li><a href="!#">Storage Tools</a></li>
-									</ul>
-								</li>
-								<li><a href="!#">Company<span className="submenu-indicator"></span></a>
-									<ul className="nav-dropdown nav-submenu">
-										<li><a href="!#">Company Info </a></li>
-										<li><a href="!#">Company Info </a></li>
-										<li><a href="!#">Company Info </a></li>
-										<li><a href="!#">Company Info </a></li>
-										<li><a href="!#">Company Info </a></li>
-									</ul>
-								</li>
-								<li><a href="!#">Contact Us</a></li>
-								<li><a href="!#">FAQ's</a></li>
-							</ul>
-							<ul className="nav-menu nav-menu-social align-to-right">
-								<li className="add-listing theme-bg cust-btn">
-									<a href="!#">Pay Bill Now</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
+				<Navbar bg="white" expand="lg">
+<Navbar.Brand href="/">
+<img src={require('./logo.png').default} className="logo" alt="" />
+</Navbar.Brand>
+<Navbar.Toggle aria-controls="basic-navbar-nav" />
+<Navbar.Collapse id="basic-navbar-nav">
+<Nav className="mr-auto">
+<Nav.Link href="/">Locations</Nav.Link>
+<NavDropdown title="Storage Options" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">Why Choose Us</NavDropdown.Item>
+<NavDropdown.Item href="!#">Personal Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">Business Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">Vehicle Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">GVS Services</NavDropdown.Item>
+</NavDropdown>
+<NavDropdown title="Storage Tools" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">Size Guide</NavDropdown.Item>
+<NavDropdown.Item href="!#">Space Calculator</NavDropdown.Item>
+<NavDropdown.Item href="!#">Tips</NavDropdown.Item>
+<NavDropdown.Item href="!#">Packing Supplies</NavDropdown.Item>
+<NavDropdown.Item href="!#">FAQs</NavDropdown.Item>
+</NavDropdown>
+<NavDropdown title="Company" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">About Us</NavDropdown.Item>
+<NavDropdown.Item href="!#">Contact</NavDropdown.Item>
+<NavDropdown.Item href="!#">Careers</NavDropdown.Item>
+</NavDropdown>
+<Nav.Link href="#link">Contact Us</Nav.Link>
+<Nav.Link href="#link">FAQ's</Nav.Link>
+
+<Nav.Link href="!#" className="cust-btn" style={{color:"#fff",padding:"10px 15px"}}>Pay Bill Now</Nav.Link>
+</Nav>
+</Navbar.Collapse>
+</Navbar>
 				</div>
                 <div className="clearfix"></div>
                 </div>
+				 
                 <div className="page-title">
 				<div className="container">
 					<div className="row">
@@ -145,7 +138,7 @@ class SearchResult extends Component {
 							
 								<div className="search-sidebar_header">
 									<h4 className="ssh_heading">Close Filter</h4>
-									<button  className="w3-bar-item w3-button w3-large"><i className="ti-close"></i></button>
+									<button  className="w3-bar-item w3-button w3-large" onClick={this.closeFilterSearch}><i className="ti-close"></i></button>
 								</div>
 								
 
@@ -159,7 +152,7 @@ class SearchResult extends Component {
 										<div className="col-lg-9 col-md-9">
 											<input type="text" className="form-control input-btm-bdr" id="zipCode" placeholder="Zip, City or address" />
 										</div>
-										<div className="col-lg-3 col-md-3 p-0">
+										<div className="col-lg-3 col-md-3 p-2 text-right">
 											<button className="btn green-btn" onClick={this.handleClick}>Search</button>
 										</div>
 										</div>
@@ -173,14 +166,14 @@ class SearchResult extends Component {
 									{
                         nearLocations.length ?
 						nearLocations.map(location => 
-							<div className="row" key= {location.siteLocation.siteID}>
+							<div className="row" key= {location.siteLocation.siteID} style={{borderTop: "1px solid grey"}}>
 										<div className="col-lg-4 col-md-4 col-sm-4 p-2" >
-											<img src={require('../assets/img/L009_1 1.png').default} className="img-responsive img-bdr" alt=""/>
+											<img src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+location.siteLocation.locationCode+'.png'} className="img-responsive img-bdr" alt=""/>
 										</div>
 										<div className="col-lg-8 col-md-8 col-sm-8">
 											<h6>{location.siteLocation.address1}<br/>
 											{location.siteLocation.city}</h6>
-											<p>Distance: {location.distance} miles</p>
+											<p style={{color: "green", textAlign: "center"}}>Distance: {location.distance} miles</p>
 										</div>
 										</div>
 						) : 
@@ -209,7 +202,7 @@ class SearchResult extends Component {
 						
 						<div className="col-lg-12 col-md-12">
 							<div className="filter_search_opt">
-								<a href="!#">Find the right storage:<i className="ml-2 ti-menu"></i></a>
+								<a href="!#" onClick={this.openFilterSearch}>Find the right storage:<i className="ml-2 ti-menu"></i></a>
 							</div>
 						</div>
 						</div>
@@ -235,7 +228,7 @@ class SearchResult extends Component {
 									<div className="property-listing property-1">
 										<div className="listing-img-wrapper">
 											<a href="!#">
-												<img src={require('../assets/img/L009_1 1.png').default} className="img-fluid mx-auto" alt="" />
+												<img src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+result.locationCode+'.png'} className="img-fluid mx-auto" alt="" />
 											</a>
 											<div className="listing-like-top">
 												<i className="ti-zoom-in"></i>
@@ -313,7 +306,7 @@ class SearchResult extends Component {
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
+											<Link to="/rent-now" className="btn btn-block cust-btn">Rent Now</Link>
 											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
 										</div>
 									</div>
@@ -384,7 +377,7 @@ class SearchResult extends Component {
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
 											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
 										</div>
 									</div>

@@ -1,79 +1,112 @@
 import React from "react";
 import { Component } from "react";
+import Slider from "react-slick";
 import 'bootstrap/dist/css/bootstrap.css';
-
-  class Home extends Component {
+import '../assets/css/styles.css';
+import {Link} from 'react-router-dom';
+import { Button, Navbar,Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
+class Home extends Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+            ZipValue: "",
+		}
+	}
+	componentDidMount(props) {
+            this.setState({ZipValue:"all"})
+       
+    }
+	handleLoginKeyUp = () =>{
+		let zip = document.getElementById('zipCode').value
+		this.setState({ZipValue:zip})
+		}
     render(){
+       const { ZipValue } = this.state
+		const settings = {
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 3,
+			slidesToScroll: 1,
+			responsive: [
+				{
+				  breakpoint: 1024,
+				  settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true
+				  }
+				},
+				{
+				  breakpoint: 600,
+				  settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					initialSlide: 1
+				  }
+				},
+				{
+				  breakpoint: 480,
+				  settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				  }
+				}
+			  ]
+		  };
         return(
             <div>
                 <body className="green-skin">
 	
-	<div id="preloader"><div className="preloader"><span></span><span></span></div></div>
+	{/* <div id="preloader"><div className="preloader"><span></span><span></span></div></div> */}
 
 	
 	<div id="main-wrapper">
 		
 		
-		<div className="header header-light">
-			<div className="container">
-				<nav id="navigation" className="navigation navigation-landscape">
-					<div className="nav-header">
-						<a className="nav-brand" href="!#">
-							<img src={require('./logo.png').default} width="100%" height="100%" className="logo" alt="" />
-						</a>
-						<div className="nav-toggle"></div>
-					</div>
-					<div className="nav-menus-wrapper" >
-						<ul className="nav-menu">
-							<li className="active"><a href="!#">Locations</a></li>
-							<li><a href="!#">Storage Options<span className="submenu-indicator"></span></a>
-								<ul className="nav-dropdown nav-submenu">
-									<li><a href="!#">Storage Options</a></li>
-									<li><a href="!#">Storage Options</a></li>
-									<li><a href="!#">Storage Options</a></li>
-									<li><a href="!#">Storage Options</a></li>
-									<li><a href="!#">Storage Options</a></li>
-								</ul>
-							</li>
-							<li><a href="!#">Storage Tools<span className="submenu-indicator"></span></a>
-								<ul className="nav-dropdown nav-submenu">
-									<li><a href="!#">Storage Tools</a></li>
-									<li><a href="!#">Storage Tools</a></li>
-									<li><a href="!#">Storage Tools</a></li>
-									<li><a href="!#">Storage Tools</a></li>
-									<li><a href="!#">Storage Tools</a></li>
-								</ul>
-							</li>
-							<li><a href="!#">Company<span className="submenu-indicator"></span></a>
-								<ul className="nav-dropdown nav-submenu">
-									<li><a href="!#">Company Info </a></li>
-									<li><a href="!#">Company Info </a></li>
-									<li><a href="!#">Company Info </a></li>
-									<li><a href="!#">Company Info </a></li>
-									<li><a href="!#">Company Info </a></li>
-								</ul>
-							</li>
-							<li><a href="!#">Contact Us</a></li>
-							<li><a href="!#">FAQ's</a></li>
-						</ul>
-						<ul className="nav-menu nav-menu-social align-to-right">
-							<li className="add-listing theme-bg cust-btn">
-								<a href="!#">Pay Bill Now</a>
-							</li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-		</div>
-		
-		<div className="clearfix"></div>
-		
-			<div>
-
-			</div>
-
-			<div className="image-cover hero-banner"  data-overlay="6">
+	<div className="header header-light">
 				<div className="container">
+				<Navbar bg="white" expand="lg">
+<Navbar.Brand href="/">
+<img src={require('./logo.png').default} className="logo" alt="" />
+</Navbar.Brand>
+<Navbar.Toggle aria-controls="basic-navbar-nav" />
+<Navbar.Collapse id="basic-navbar-nav">
+<Nav className="mr-auto">
+<Nav.Link href="/">Locations</Nav.Link>
+<NavDropdown title="Storage Options" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">Why Choose Us</NavDropdown.Item>
+<NavDropdown.Item href="!#">Personal Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">Business Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">Vehicle Storage</NavDropdown.Item>
+<NavDropdown.Item href="!#">GVS Services</NavDropdown.Item>
+</NavDropdown>
+<NavDropdown title="Storage Tools" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">Size Guide</NavDropdown.Item>
+<NavDropdown.Item href="!#">Space Calculator</NavDropdown.Item>
+<NavDropdown.Item href="!#">Tips</NavDropdown.Item>
+<NavDropdown.Item href="!#">Packing Supplies</NavDropdown.Item>
+<NavDropdown.Item href="!#">FAQs</NavDropdown.Item>
+</NavDropdown>
+<NavDropdown title="Company" id="basic-nav-dropdown">
+<NavDropdown.Item href="!#">About Us</NavDropdown.Item>
+<NavDropdown.Item href="!#">Contact</NavDropdown.Item>
+<NavDropdown.Item href="!#">Careers</NavDropdown.Item>
+</NavDropdown>
+<Nav.Link href="#link">Contact Us</Nav.Link>
+<Nav.Link href="#link">FAQ's</Nav.Link>
+
+<Nav.Link href="!#" className="cust-btn" style={{color:"#fff",padding:"10px 15px"}}>Pay Bill Now</Nav.Link>
+</Nav>
+</Navbar.Collapse>
+</Navbar>
+				</div>
+                <div className="clearfix"></div>
+                </div>
+
+			<div className="image-cover hero-banner home-banner">
+				<div className="container" style={{position: "relative", top: "150px"}}>
 
 					<h1 className="big-header-capt mb-0">Reserve and Rent from Home</h1>
 					<p className="text-center mb-5">Extra savings! See Facilities Details</p>
@@ -86,14 +119,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 								<div className="col-lg-9 col-md-9 col-sm-12 small-padd">
 									<div className="form-group">
 										<div className="input-with-icon">
-											<input type="text" className="form-control b-r" placeholder="Enter Address, City, Zip Code"/>
+											<input type="text" className="form-control b-r" id="zipCode"  placeholder="Enter Address, City, Zip Code" onKeyUp={this.handleLoginKeyUp}/>
 											<i className="ti-location-pin"></i>
 										</div>
 									</div>
 								</div>
+								
 								<div className="col-lg-3 col-md-3 col-sm-12 small-padd">
 									<div className="form-group">
-										<a href="!#" className="btn search-btn">Find Storage  <i className="ti-arrow-right"></i></a>
+									
+										<a href={'/search-result/'+ZipValue} className="btn search-btn">Find Storage  <i className="ti-arrow-right"></i></a>
+									
+										
 									</div>
 								</div>
 
@@ -110,27 +147,28 @@ import 'bootstrap/dist/css/bootstrap.css';
 						<div className="col-md-10 col-lg-10">
 							<div className="row">
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">NewYork</a>
+									<a href="#">NewYork</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">San Francisco</a>
+									<a href="#">San Francisco</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">Chicago</a>
+									<a href="#">Chicago</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">Los Angeles</a>
+									<a href="#">Los Angeles</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">Miami</a>
+									<a href="#">Miami</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="!#">Austin</a>
+									<a href="#">Austin</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 			<section>
 				<div className="container">
@@ -171,7 +209,93 @@ import 'bootstrap/dist/css/bootstrap.css';
 			</section>
 			<section className="gray">
 				<div className="container">
-					<div className="row">
+				<Slider {...settings}>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+          <div>
+		  <div className="single-items">
+									<div className="listing-img-wrapper">
+										<div className="list-img-slide">
+											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
+										</div>
+										<blockquote className="blockquote">
+											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
+										</blockquote>
+										<p className="test-name">Rachel Reed</p>
+										<p className="test-desc">Scotts Valley, California</p>
+									</div>
+			</div>
+          </div>
+        </Slider>
+					{/* <div className="row">
 						<div className="col-lg-12 col-md-12">
 							<div className="property-slide">
 								
@@ -251,11 +375,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 							</div>
 						</div>
 					</div>
-					
+					 */}
 				</div>
 			</section>
-			
-		</div>
 
 
 		<section>
@@ -611,6 +733,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 </body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/rangeslider.js"></script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/slider-bg.js"></script>
+<script src="assets/js/lightbox.js"></script> 
+<script src="assets/js/imagesloaded.js"></script>
+
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/cl-switch.js"></script>
             </div>
         )
     }

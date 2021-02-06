@@ -1,15 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
-import SearchResult from './components/SearchResult';
-import Home from './components/Home';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './routes';
+import history from './services/history';
 class App extends Component {
   render() {
     return(
-      <div className="App">
-        <SearchResult/>
-      </div>
+      <Router history={history}>
+        <Routes />
+      </Router>
     )
   }
 }
