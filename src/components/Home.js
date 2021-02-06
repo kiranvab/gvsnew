@@ -185,7 +185,7 @@ class Home extends Component {
 						</div>
 						<div className="col-lg-4 col-md-4">
 							<div className="info-img">
-								<img src={require('../assets/img/img1.png').default} className="img-responsive img-bdr-50" alt=""/>
+								<img src={require('../assets/img/stairs.png').default} className="img-responsive img-bdr-50" alt=""/>
 							</div>
 							<div className="text-center p-5">
 								<h5 className="home-h1">New to Storage?</h5>
@@ -195,7 +195,7 @@ class Home extends Component {
 						</div>
 						<div className="col-lg-4 col-md-4">
 							<div className="info-img">
-								<img src={require('../assets/img/img1.png').default} className="img-responsive img-bdr-50" alt=""/>
+								<img src={require('../assets/img/dog.png').default} className="img-responsive img-bdr-50" alt=""/>
 							</div>
 							<div className="text-center p-5">
 								<h5 className="home-h1">We Offer Worry FREE Reservations</h5>
@@ -458,7 +458,7 @@ class Home extends Component {
 		</section>
 
 
-<section className="call-to-act-wrap">
+		<section className="call-to-act-wrap">
 	<div className="container">
 		<div className="row">
 			<div className="col-lg-12 cold-md-12">
@@ -472,49 +472,49 @@ class Home extends Component {
 			</div>
 		</div>
 		<div className="row mt-5">
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/map.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/map.svg').default} className="img-fluid"/>
 				</div>
 				<p className="ftr-icon-txt">
 					Over 1,900 Convenient self storage locations
 				</p>
 			</div>
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/boss.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/boss.svg').default} className="img-fluid"/>
 				</div>
 				<p className="ftr-icon-txt">
 					Professional Managers
 				</p>
 			</div>
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/map.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/shield.png').default} className="img-fluid"/>
 				</div>
 				<p className="ftr-icon-txt">
 					stat-of-the-art <br/> Security
 				</p>
 			</div>
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/map.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/clean.png').default} className="img-fluid"/>
 				</div>
 				<p className="ftr-icon-txt">
 					Clean <br/> and well-lit
 				</p>
 			</div>
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/map.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/size.png').default} className="img-fluid" />
 				</div>
 				<p className="ftr-icon-txt">
 					variety <br/> of Sizes
 				</p>
 			</div>
-			<div className="col-md-2 col-lg-2 p-4">
+			<div className="col-6 col-md-2 col-lg-2 p-4">
 				<div className="footer-icons">
-					<img src={require('../assets/img/map.png').default} className="img-fluid" alt=""/>
+					<img src={require('../assets/img/temperature.png').default} className="img-fluid"/>
 				</div>
 				<p className="ftr-icon-txt">
 					Climate-controlled <br/> Units
@@ -525,7 +525,6 @@ class Home extends Component {
 		
 	</div>
 </section>
-
 <section className="footer-black">
 	<div className="container">
 		<div className="col-md-12 col-lg-12">
