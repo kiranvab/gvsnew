@@ -12,11 +12,13 @@ class SearchResult extends Component {
             results:[],
 			unitdetails:[],
 			nearLocations:[],
+			fileterName :""
 		}
     }
 	
     componentDidMount(props) {
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
+		//axios.get("/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
             this.setState({results: response.data.siteLocations})
@@ -24,7 +26,8 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/api/units/L079")
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/api/units/L079")
+		//axios.get("/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -36,7 +39,8 @@ class SearchResult extends Component {
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         //alert("I'm working on"+zip);
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
+		//axios.get("/search/"+zip)
         .then(response =>{ 
 			console.log(response)
 			console.log(response.data.siteLocations[0].content.gvsnearsites)
@@ -56,7 +60,8 @@ class SearchResult extends Component {
 
     getDetils = (locationCode)=>{
         //alert("I'm working on"+locationCode);
-        axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
+		//axios.get("/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({unitdetails: Myresponse.data.units})
@@ -64,11 +69,25 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-    }
+	}
+	
+	FilterText = (event) => {
+		alert("file Value", event.target.value)
+		//this.setState({fileterName: fname})
+		this.setState({fileterName: event.target.value})
+	}
+	DriveUp = () =>{
+		
+		this.setState({fileterName: "Drive Up Storage"})
+	}
+	VehicleStore = () =>{
+		
+		this.setState({fileterName: "Vehicle Storage"})
+	}
      
     render(){
         
-        const { results, unitdetails, nearLocations } = this.state
+        const { results, unitdetails, nearLocations, fileterName} = this.state
         return(
             
             <div>
@@ -213,7 +232,7 @@ class SearchResult extends Component {
                             <div className="storage-listing">
                             {
                         results.length ?
-                        results.map(result => 
+						results.map(result => 
 							<div className="row" key= {result.siteID}>
 							
 								<div className="col-lg-12 col-md-12">
@@ -246,13 +265,13 @@ class SearchResult extends Component {
 														<p>{result.content.address}<br/>{result.address2} </p>
 														<button className="btn btn-block direction-btn" onClick={() => this.getDetils(result.locationCode)}> View Facility</button>
 											<div className="listing-rating">
-												<i className="ti-star filled"></i>
-												<i className="ti-star filled"></i>
-												<i className="ti-star filled"></i>
-												<i className="ti-star filled"></i>
-												<i className="ti-star"></i>
+												<i className="fa fa-star filled"></i>
+												<i className="fa fa-star filled"></i>
+												<i className="fa fa-star filled"></i>
+												<i className="fa fa-star filled"></i>
+												<i className="fa fa-star filled"></i>
 											</div>
-											<p className="review-txt">86 Reviews</p>
+											<p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
 													</div>
 													<div className="col-md-7 col-lg-7 listing-content">
 														<p>New Customer: <span className="phone"><span style={{color:"green"}}>{result.phone}</span></span></p>
@@ -308,14 +327,12 @@ class SearchResult extends Component {
                  		<div className="col-md-3 col-lg-3"></div>
                  		<div className="col-md-4 col-lg-4 p-1 text-right">
 							<div className="form-group row">
-							<label for="inputPassword" className="col-sm-4 col-form-label">Sort by</label>
+							<label className="col-sm-4 col-form-label">Sort by</label>
 							<div className="col-sm-8">
-							<select className="form-control select-style" id="sort">
-						      <option>Vehicle Storage</option>
-						      <option>Vehicle Storage</option>
-						      <option>Vehicle Storage</option>
-						      <option>Vehicle Storage</option>
-						      <option>Vehicle Storage</option>
+							<select className="form-control select-style" id="sort" onChange={this.FilterText} value={this.state.value}>
+								<option value="">Sort Value</option>
+						      <option value="Vehicle Storage">Vehicle Storage</option>
+						      <option vale="Drive Up Storage">Drive Up Storage</option>
 						    </select>
 							</div>
 							</div>
@@ -324,21 +341,21 @@ class SearchResult extends Component {
                  		<div className="col-md-12 col-lg-12">
                  		<div className="row">
                  				<div className="col-md-2 col-lg-2 text-12 pad-top-25-l-10 p-0">
-                 				<strong>Filter Unit by Size</strong>
+                 				
                  				</div>
                  				<div className="col-md-10 col-lg-10">
                  					<div className="row">
                  						<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn">All Sizes</button>
+											<button className="btn btn-block cust-btn" >Climate Controlled</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1  mt-3">
-											<button className="btn btn-block cust-btn">Small</button>
+											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Vehicle Storage</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn">Medium</button>
+											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Drive-UpAccess</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn">Large</button>
+											<button className="btn btn-block cust-btn">Warehouse/Office</button>
 										</div>
                  					</div>
                  				</div>
@@ -350,76 +367,62 @@ class SearchResult extends Component {
 							<div className="col-md-12 col-lg-12 sizes-block">
 									<h3>Most Popular Sizes</h3>
 									<div className="row bdr-btm">										
+									<div className="detail-listing">
+                                    {
+                                    unitdetails.length ?
+									unitdetails.slice(0, 6)
+									.filter(detail=> {
+										return detail.unitTypeName.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+									}) 
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
 										<div className="col-md-3 col-lg-3 p-0">
 											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
 											</ul>
 										
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
-											<h4>$59</h4>
+											<h4>${detail.webRate}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<Link to="/rent-now" className="btn btn-block cust-btn">Rent Now</Link>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
 											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
 										</div>
 									</div>
-
-									<div className="row bdr-btm">										
-										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
-											<a href="!#" className="size-help">Size Help</a>
-										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
-										<div className="col-md-3 col-lg-3 p-0">
-											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
-											</ul>
-										
-										</div>
-										<div className="col-md-2 col-lg-2 p-1">
-											<div className="price-disable-block">
-											<p>IN-STORE</p>
-											<h4>$483</h4>
-										</div>
-										</div>
-										<div className="col-md-2 col-lg-2 p-1">
-											<div className="price-enable-block">
-											<p>WEB RATE</p>
-											<h4>$59</h4>
-										</div>
-										</div>
-										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
-											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
-										</div>
-									</div>
-								</div>
+                                    ) : 
+                                    null
+                                }
+                                </div>
+							</div>
+							</div>
 	
 								<div className="col-md-12 col-lg-12 sizes-block">
 									<h3>All Other Available Sizes</h3>
                                     <div className="detail-listing">
                                     {
                                     unitdetails.length ?
-                                    unitdetails.map(detail => 
+									unitdetails
+									 .filter(detail=> {
+										return detail.unitTypeName.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+									}) 
+									.map(detail => 
 									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
 											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
@@ -623,12 +626,40 @@ class SearchResult extends Component {
 								Site Number: 8989
 								</div>
 
-								<div className="reviews-block">
-									<h2>Reviews</h2>
-									<p className="text-right">(20 of 86 Reviews)</p>
-									<h3>Recent Customer Reviews About This Facility</h3>
-									<hr/>
-								</div>
+							
+						<div className="reviews-block">
+	<h2>Reviews</h2>
+	<p className="text-right">(20 of 86 Reviews)</p>
+	<h3>Recent Customer Reviews About This Facility</h3>
+	<hr/>
+	
+	<div className="row">
+		<div className="col-md-6 col-lg-6">
+			<div className="review-date">July 16, 2020</div>
+			<div className="review-name">Gabe Cuneo</div>
+			<div className="review-posted">Posted on Google</div>
+		</div>
+		<div className="col-md-6 col-lg-6 text-right">
+			<p className="review-txt">Overall Rating</p>
+			<div className="listing-rating">
+				<i className="ti-star filled"></i>
+				<i className="ti-star filled"></i>
+				<i className="ti-star filled"></i>
+				<i className="ti-star filled"></i>
+				<i className="ti-star"></i>
+			</div>
+		</div>
+		<div className="col-md-12 col-lg-12">
+			<hr/>
+			<p>I needed a storage unit for a couple of months. The process was extraordinarily easy; someone got back to me within a day of submitting an inquiry, and everything was done over the phone in 10 minutes. And, it's on a month-to-month basis, so when I am done, I'm not locked in! The unit is very secure, requiring a unique passcode to enter, and they give you plenty of keys to your individual unit, which is good if you need to allow access to someone else. I would definitely recommend to others.</p>
+			<div className="review-response">
+				<h4>Response from Extra Space Storage</h4>
+				Hello, Gabe. Thanks for the positive feedback. We're so happy we have customers like you. Please call (806) 319-7610 if you have any questions.
+			</div>
+			<hr/>
+		</div>
+	</div>
+	</div>
                                 </div>
                                 </div>
                                 </div>
