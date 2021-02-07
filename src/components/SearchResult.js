@@ -84,6 +84,12 @@ class SearchResult extends Component {
 		
 		this.setState({fileterName: "Vehicle Storage"})
 	}
+	ClimateControll = () =>{
+		this.setState({fileterName: ""})
+	}
+	WarehouseOffice = () =>{
+		this.setState({fileterName: ""})
+	}
      
     render(){
         
@@ -346,7 +352,7 @@ class SearchResult extends Component {
                  				<div className="col-md-10 col-lg-10">
                  					<div className="row">
                  						<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn" >Climate Controlled</button>
+											<button className="btn btn-block cust-btn" onClick={this.ClimateControll} >Climate Controlled</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1  mt-3">
 											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Vehicle Storage</button>
@@ -355,7 +361,7 @@ class SearchResult extends Component {
 											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Drive-UpAccess</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn">Warehouse/Office</button>
+											<button className="btn btn-block cust-btn" onClick={this.WarehouseOffice}>Warehouse/Office</button>
 										</div>
                  					</div>
                  				</div>
