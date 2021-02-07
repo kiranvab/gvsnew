@@ -26,7 +26,7 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-		axios.get("https://veheal-prod.herokuapp.com/gvs/api/api/units/L079")
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
 		//axios.get("/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
