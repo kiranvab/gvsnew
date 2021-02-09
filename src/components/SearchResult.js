@@ -78,17 +78,17 @@ class SearchResult extends Component {
 	}
 	DriveUp = () =>{
 		
-		this.setState({fileterName: "Drive Up Storage"})
+		this.setState({fileterName: "10X15"})
 	}
 	VehicleStore = () =>{
 		
-		this.setState({fileterName: "Vehicle Storage"})
+		this.setState({fileterName: "10X10"})
 	}
 	ClimateControll = () =>{
-		this.setState({fileterName: ""})
+		this.setState({fileterName: "5X10"})
 	}
 	WarehouseOffice = () =>{
-		this.setState({fileterName: ""})
+		this.setState({fileterName: "10X20"})
 	}
      
     render(){
@@ -352,16 +352,16 @@ class SearchResult extends Component {
                  				<div className="col-md-10 col-lg-10">
                  					<div className="row">
                  						<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn" onClick={this.ClimateControll} >Climate Controlled</button>
+											<button className="btn btn-block cust-btn" onClick={this.ClimateControll} >Small</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1  mt-3">
-											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Vehicle Storage</button>
+											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Medium</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Drive-UpAccess</button>
+											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Large</button>
 										</div>
 										<div className="col-md-3 col-lg-3 p-1 mt-3">
-											<button className="btn btn-block cust-btn" onClick={this.WarehouseOffice}>Warehouse/Office</button>
+											<button className="btn btn-block cust-btn" onClick={this.WarehouseOffice}>Huge</button>
 										</div>
                  					</div>
                  				</div>
@@ -378,7 +378,7 @@ class SearchResult extends Component {
                                     unitdetails.length ?
 									unitdetails.slice(0, 6)
 									.filter(detail=> {
-										return detail.unitTypeName.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
 									}) 
 									.map(detail => 
 									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
@@ -426,7 +426,7 @@ class SearchResult extends Component {
                                     unitdetails.length ?
 									unitdetails
 									 .filter(detail=> {
-										return detail.unitTypeName.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
 									}) 
 									.map(detail => 
 									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										

@@ -147,22 +147,22 @@ class Home extends Component {
 						<div className="col-md-10 col-lg-10">
 							<div className="row">
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">NewYork</a>
+									<a href={'/search-result/newyork'}>NewYork</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">San Francisco</a>
+									<a href={'/search-result/sanfransisco'}>San Francisco</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">Chicago</a>
+									<a href={'/search-result/chicago'}>Chicago</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">Los Angeles</a>
+									<a href={'/search-result/losangeles'}>Los Angeles</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">Miami</a>
+									<a href={'/search-result/miami'}>Miami</a>
 								</div>
 								<div className="col-md-2 col-lg-2 p-0">
-									<a href="#">Austin</a>
+									<a href={'/search-result/austin'}>Austin</a>
 								</div>
 							</div>
 						</div>
