@@ -3,40 +3,43 @@ import { Component } from "react";
 import axios from 'axios';
 import '../assets/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
-import { Button, Navbar,Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
+import { Navbar,Nav, NavDropdown } from 'react-bootstrap'
 class SearchResult extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            results:[],
+            results:{},
 			unitdetails:[],
 			nearLocations:[],
-			fileterName :""
+			fileterName :"",
+			UnitContent:{},
+			ZipValue:""
 		}
     }
 	
     componentDidMount(props) {
-		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
-		//axios.get("/search/"+this.props.match.params.zip)
-        .then(response =>{ 
-            console.log(response)
-            this.setState({results: response.data.siteLocations})
-        })
-        .catch(error => {
-            console.log(error)
-        })
-		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
-		//axios.get("/units/L079")
+		console.log("web Params ID:",this.props.match.params.id )
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+this.props.match.params.id)
+		//axios.get("/units/"+this.props.match.params.id)
         .then(Myresponse =>{ 
             console.log(Myresponse)
+			console.log("Site location Data:",Myresponse.data.siteLocation)
+			console.log("Units Data:",Myresponse.data.units)
             this.setState({unitdetails: Myresponse.data.units})
+			this.setState({results: Myresponse.data.siteLocation})
+			this.setState({UnitContent: Myresponse.data.siteLocation.content})
         })
         .catch(error => {
             console.log(error)
         })
+		this.setState({ZipValue:"all"})
     }
-    handleClick = () =>{
+
+	handleLoginKeyUp = () =>{
+		let zip = document.getElementById('zipCode').value
+		this.setState({ZipValue:zip})
+		}
+   /*  handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         //alert("I'm working on"+zip);
 		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
@@ -50,7 +53,7 @@ class SearchResult extends Component {
         .catch(error => {
             console.log(error)
         })
-	}
+	} */
 	openFilterSearch = () => {
 		document.getElementById("filter_search").style.display = "block"
 	}
@@ -90,15 +93,16 @@ class SearchResult extends Component {
 	WarehouseOffice = () =>{
 		this.setState({fileterName: "10X20"})
 	}
+	ShowAll = () =>{
+		this.setState({fileterName: ""})
+	}
      
     render(){
         
-        const { results, unitdetails, nearLocations, fileterName} = this.state
+        const { results, unitdetails, nearLocations, fileterName, UnitContent, ZipValue} = this.state
         return(
             
-            <div>
-                <body className="green-skin">
-                 
+            <div className="green-skin">
                <div className="header header-light">
 				<div className="container">
 				<Navbar bg="white" expand="lg">
@@ -175,10 +179,10 @@ class SearchResult extends Component {
 									<div className="search">
 										<div className="row">
 										<div className="col-lg-9 col-md-9">
-											<input type="text" className="form-control input-btm-bdr" id="zipCode" placeholder="Zip, City or address" />
+											<input type="text" className="form-control input-btm-bdr" id="zipCode" placeholder="Zip, City or address" onKeyUp={this.handleLoginKeyUp} />
 										</div>
 										<div className="col-lg-3 col-md-3 p-2 text-right">
-											<button className="btn green-btn" onClick={this.handleClick}>Search</button>
+										<a href={'/search-result/'+ZipValue} className="btn green-btn" >Search</a>
 										</div>
 										</div>
 									</div>
@@ -233,17 +237,12 @@ class SearchResult extends Component {
 						</div>
 							
 							<div className="col-lg-8 col-md-12 col-md-12 list-layout">
-                            <h2 style={{color: "green", textAlign: "center"}}>Search results({results.length})</h2>
-                   
                             <div className="storage-listing">
-                            {
-                        results.length ?
-						results.map(result => 
-							<div className="row" key= {result.siteID}>
+							<div className="row">
 							
 								<div className="col-lg-12 col-md-12">
 									<div className="filter-fl">
-										<h4>{result.name}</h4>
+										<h4></h4>
 										<div className="btn-group custom-drop" >
 										</div>
 									</div>
@@ -253,7 +252,7 @@ class SearchResult extends Component {
 									<div className="property-listing property-1">
 										<div className="listing-img-wrapper">
 											<a href="!#">
-												<img src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+result.locationCode+'.png'} className="img-fluid mx-auto" alt="" />
+												<img src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+results.locationCode+'.png'} className="img-fluid mx-auto" alt="" />
 											</a>
 											<div className="listing-like-top">
 												<i className="ti-zoom-in"></i>
@@ -267,9 +266,9 @@ class SearchResult extends Component {
 												<div className="col-md-12 col-lg-12 p-0">
 												<div className="row">
 													<div className="col-md-5 col-lg-5 right-bdr">
-														<h6>Extra Space Storage</h6>
-														<p>{result.content.address}<br/>{result.address2} </p>
-														<button className="btn btn-block direction-btn" onClick={() => this.getDetils(result.locationCode)}> View Facility</button>
+														<h6>{results.name}</h6>
+														<p>{UnitContent.address}</p>
+														{/* <button className="btn btn-block direction-btn" onClick={() => this.getDetils(unit.locationCode)}> View Facility</button> */}
 											<div className="listing-rating">
 												<i className="fa fa-star filled"></i>
 												<i className="fa fa-star filled"></i>
@@ -280,9 +279,9 @@ class SearchResult extends Component {
 											<p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
 													</div>
 													<div className="col-md-7 col-lg-7 listing-content">
-														<p>New Customer: <span className="phone"><span style={{color:"green"}}>{result.phone}</span></span></p>
-														<p>Storage Gate Hours<br/><span style={{color:"green"}}>{result.content.accesshours}</span> </p>
-														<p>Storage Office Hours<br/><span style={{color:"green"}}>{result.content.officehours}</span></p>
+														<p>New Customer: <span className="phone"><span style={{color:"green"}}>{results.phone}</span></span></p>
+														<p>Storage Gate Hours<br/><span style={{color:"green"}}>{UnitContent.accesshours}</span> </p>
+														<p>Storage Office Hours<br/><span style={{color:"green"}}>{UnitContent.officehours}</span></p>
                                                         
 													</div>
 												</div>
@@ -293,10 +292,6 @@ class SearchResult extends Component {
 								</div>
                                 </div>
                             </div>
-                            
-							) : 
-                            null
-                        }
                        </div>
 					   <div className="col-md-12 col-lg-12">
 									<img src={require('../assets/css/img/Group 52.png').default} className="img-responsive" alt=""/>
@@ -337,8 +332,10 @@ class SearchResult extends Component {
 							<div className="col-sm-8">
 							<select className="form-control select-style" id="sort" onChange={this.FilterText} value={this.state.value}>
 								<option value="">Sort Value</option>
-						      <option value="Vehicle Storage">Vehicle Storage</option>
-						      <option vale="Drive Up Storage">Drive Up Storage</option>
+						      <option value="PriceH">Price Low to High</option>
+						      <option vale="PriceL">Price High to Low</option>
+							  <option value="SpaceH">Space Low to High</option>
+						      <option vale="SpaceL">Space High to Low</option>
 						    </select>
 							</div>
 							</div>
@@ -346,21 +343,21 @@ class SearchResult extends Component {
                  	
                  		<div className="col-md-12 col-lg-12">
                  		<div className="row">
-                 				<div className="col-md-2 col-lg-2 text-12 pad-top-25-l-10 p-0">
-                 				
-                 				</div>
-                 				<div className="col-md-10 col-lg-10">
+                 				<div className="col-md-12 col-lg-12">
                  					<div className="row">
-                 						<div className="col-md-3 col-lg-3 p-1 mt-3">
+									 <div className="col-md-4 col-lg-4 p-1 mt-2">
+											<button className="btn btn-block cust-btn" onClick={this.ShowAll} >Show All</button>
+										</div>
+                 						<div className="col-md-2 col-lg-2 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.ClimateControll} >Small</button>
 										</div>
-										<div className="col-md-3 col-lg-3 p-1  mt-3">
+										<div className="col-md-2 col-lg-2 p-1  mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Medium</button>
 										</div>
-										<div className="col-md-3 col-lg-3 p-1 mt-3">
+										<div className="col-md-2 col-lg-2 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Large</button>
 										</div>
-										<div className="col-md-3 col-lg-3 p-1 mt-3">
+										<div className="col-md-2 col-lg-2 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.WarehouseOffice}>Huge</button>
 										</div>
                  					</div>
@@ -370,13 +367,13 @@ class SearchResult extends Component {
 					 </div>
 					 </div>
 					 </div>
-							<div className="col-md-12 col-lg-12 sizes-block">
+							<div className="col-md-12 col-lg-12 ">
 									<h3>Most Popular Sizes</h3>
 									<div className="row bdr-btm">										
 									<div className="detail-listing">
                                     {
                                     unitdetails.length ?
-									unitdetails.slice(0, 6)
+									unitdetails.slice(0, 2)
 									.filter(detail=> {
 										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
 									}) 
@@ -409,7 +406,7 @@ class SearchResult extends Component {
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
 										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
-											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
+											<p className="act-fast">Act Fast : 1 Unit Left!</p>
 										</div>
 									</div>
                                     ) : 
@@ -419,7 +416,7 @@ class SearchResult extends Component {
 							</div>
 							</div>
 	
-								<div className="col-md-12 col-lg-12 sizes-block">
+								<div className="col-md-12 col-lg-12">
 									<h3>All Other Available Sizes</h3>
                                     <div className="detail-listing">
                                     {
@@ -867,20 +864,6 @@ class SearchResult extends Component {
 					</div>
 				</div>
 			</footer>
-            </body>    
-            <a id="back2Top" className="top-scroll" title="Back to top" href="!#"><i className="ti-arrow-up"></i></a>	
-            <script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/jquery.magnific-popup.min.js"></script>
-		<script src="assets/js/slick.js"></script>
-		<script src="assets/js/slider-bg.js"></script>
-		<script src="assets/js/imagesloaded.js"></script>
-		{/* <script src="assets/js/custom.js"></script> */}
-		<script src="assets/js/cl-switch.js"></script>
-        
-		
-                    
             </div>
             
         )

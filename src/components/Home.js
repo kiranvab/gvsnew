@@ -3,8 +3,7 @@ import { Component } from "react";
 import Slider from "react-slick";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../assets/css/styles.css';
-import {Link} from 'react-router-dom';
-import { Button, Navbar,Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
+import { Navbar,Nav, NavDropdown } from 'react-bootstrap'
 class Home extends Component {
 	constructor(props) {
         super(props)
@@ -56,12 +55,7 @@ class Home extends Component {
 			  ]
 		  };
         return(
-            <div>
-                <body className="green-skin">
-	
-	{/* <div id="preloader"><div className="preloader"><span></span><span></span></div></div> */}
-
-	
+            <div className="green-skin">
 	<div id="main-wrapper">
 		
 		
@@ -295,87 +289,7 @@ class Home extends Component {
 			</div>
           </div>
         </Slider>
-					{/* <div className="row">
-						<div className="col-lg-12 col-md-12">
-							<div className="property-slide">
-								
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								<div className="single-items">
-									<div className="listing-img-wrapper">
-										<div className="list-img-slide">
-											<div><img src={require('../assets/img/img-p-1.jpg').default} width="50%" className="img-fluid img-bdr" alt="" /></div>
-										</div>
-										<blockquote className="blockquote">
-											<p className="mb-0">Longest gate access hours in the area, on-site property manager, 24 hour surveillance, and cleanest storage facility you’ve ever seen!</p>
-										</blockquote>
-										<p className="test-name">Rachel Reed</p>
-										<p className="test-desc">Scotts Valley, California</p>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-					 */}
+					
 				</div>
 			</section>
 
@@ -723,29 +637,7 @@ class Home extends Component {
 		</div>
 	</div>
 </footer>
-
-
-
-
-<a id="back2Top" className="top-scroll" title="Back to top" href="!#"><i className="ti-arrow-up"></i></a>
-
-
-
-</body>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/rangeslider.js"></script>
-<script src="assets/js/select2.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="assets/js/slick.js"></script>
-<script src="assets/js/slider-bg.js"></script>
-<script src="assets/js/lightbox.js"></script> 
-<script src="assets/js/imagesloaded.js"></script>
-
-<script src="assets/js/custom.js"></script>
-<script src="assets/js/cl-switch.js"></script>
-            </div>
+</div>
         )
     }
   }
