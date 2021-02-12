@@ -868,5 +868,5 @@ class Search extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ("AIzaSyCPuQadZpFuDF9KOWFrlthnPRdRJb-QlrI")
+    apiKey: ("AIzaSyB2lkpqqcRQMRK21-C-rXHelXObmXkbaeI")
   })(Search)
