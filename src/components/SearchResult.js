@@ -266,7 +266,7 @@ class SearchResult extends Component {
 												<div className="col-md-12 col-lg-12 p-0">
 												<div className="row">
 													<div className="col-md-5 col-lg-5 right-bdr">
-														<h6>{results.name}</h6>
+														<h6>{results.city} Self Storage</h6>
 														<p>{UnitContent.address}</p>
 														{/* <button className="btn btn-block direction-btn" onClick={() => this.getDetils(unit.locationCode)}> View Facility</button> */}
 											<div className="listing-rating">
@@ -373,10 +373,9 @@ class SearchResult extends Component {
 									<div className="detail-listing">
                                     {
                                     unitdetails.length ?
-									unitdetails.slice(0, 2)
-									.filter(detail=> {
-										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
-									}) 
+									unitdetails
+									.sort((a, b) => a.webRate > b.webRate ? 1 : -1)
+									.slice(0, 2)
 									.map(detail => 
 									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">

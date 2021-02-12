@@ -25,6 +25,16 @@ class Search extends Component {
         .then(response =>{ 
             console.log(response)
             this.setState({SearchResults: response.data.siteLocations})	
+            var siteId = response.data.siteLocations[0].locationCode
+            console.log("Site ID:", siteId)
+            axios.get("/units/"+siteId)
+        .then(Myresponse =>{ 
+            console.log(Myresponse)
+            this.setState({SearchUnitdetails: Myresponse.data.units})
+        })
+        .catch(error => {
+            console.log(error)
+        })
         })
         .catch(error => {
             console.log(error)
@@ -280,7 +290,8 @@ class Search extends Component {
                             <div className="row">
                             {
                                     SearchUnitdetails.length ?
-									SearchUnitdetails.slice(0, 3) 
+									SearchUnitdetails.sort((a, b) => a.webRate > b.webRate ? 1 : -1)
+									.slice(0, 3)
 									.map(SearchDetail => 
                                 <div className="col-md-4 col-lg-4 p-2">
                                     <div className="box-bg">
@@ -438,8 +449,8 @@ class Search extends Component {
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">										
                             <div className="col-lg-1 col-md-1 map-icon-text">{index+1}</div>
-                            <div className="col-lg-4 col-md-4 p-0">
-                                <h6>{SearchResult.name}</h6>
+                            <div className="col-lg-5 col-md-5 p-0">
+                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address}</p>
                                 <div className="listing-rating">
                                 <i className="fa fa-star filled"></i>
@@ -450,7 +461,7 @@ class Search extends Component {
                                 </div>
                                 <p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
                             </div>
-                            <div className="col-lg-2 col-md-2 p-0">
+                            <div className="col-lg-1 col-md-1 p-0">
                                 
                             </div>
                             <div className="col-lg-3 col-md-3 P-0">
