@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar,Nav, NavDropdown } from 'react-bootstrap'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import SearchResult from "./SearchResult";
 class Search extends Component {
     constructor(props) {
         super(props)
@@ -13,7 +14,7 @@ class Search extends Component {
             SearchResults:[],
 			SearchUnitdetails:[],
 			SearchNearLocations:[],
-			SearchFileterName :"",
+			SearchFilterName :"",
             name : {}
 		}
     }
@@ -39,7 +40,7 @@ class Search extends Component {
         .catch(error => {
             console.log(error)
         })
-		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
+		/* axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
 		//axios.get("/units/L079")
         .then(Myresponse =>{ 
             console.log(Myresponse)
@@ -47,7 +48,8 @@ class Search extends Component {
         })
         .catch(error => {
             console.log(error)
-        })
+        }) */
+        this.setState({SearchFilterName: ""})
        /* //axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
 		axios.get("/search/554477")
         .then(Syresponse =>{ 
@@ -91,21 +93,44 @@ class Search extends Component {
 	FilterText = (event) => {
 		alert("file Value", event.target.value)
 		//this.setState({fileterName: fname})
-		this.setState({SearchFileterName: event.target.value})
+		this.setState({SearchFilterName: event.target.value})
 	}
+    ShowAll = ()=>{
+    document.getElementById('WareHouseDiv').style.display = "none"
+    document.getElementById('ClimateDiv').style.display = "none"
+    document.getElementById('VehicleDiv').style.display = "none"
+    document.getElementById('DriveupDiv').style.display = "none"
+    document.getElementById('RegularDiv').style.display = "block"
+    }
 	DriveUp = () =>{
-		
-		this.setState({SearchFileterName: "10X15"})
+	document.getElementById('RegularDiv').style.display = "none"
+    document.getElementById('WareHouseDiv').style.display = "none"
+    document.getElementById('ClimateDiv').style.display = "none"
+    document.getElementById('VehicleDiv').style.display = "none"
+    document.getElementById('DriveupDiv').style.display = "block"
 	}
 	VehicleStore = () =>{
-		
-		this.setState({SearchFileterName: "10X10"})
+	document.getElementById('RegularDiv').style.display = "none"
+    document.getElementById('DriveupDiv').style.display = "none"
+    document.getElementById('WareHouseDiv').style.display = "none"
+    document.getElementById('ClimateDiv').style.display = "none"
+    document.getElementById('VehicleDiv').style.display = "block"
 	}
 	ClimateControll = () =>{
-		this.setState({SearchFileterName: "5X10"})
+    document.getElementById('RegularDiv').style.display = "none"
+    document.getElementById('DriveupDiv').style.display = "none"
+    document.getElementById('VehicleDiv').style.display = "none"
+    document.getElementById('WareHouseDiv').style.display = "none"
+    document.getElementById('ClimateDiv').style.display = "block"
+      
+        
 	}
 	WarehouseOffice = () =>{
-		this.setState({SearchFileterName: "10X20"})
+		document.getElementById('RegularDiv').style.display = "none"
+    document.getElementById('DriveupDiv').style.display = "none"
+    document.getElementById('VehicleDiv').style.display = "none"
+    document.getElementById('ClimateDiv').style.display = "none"
+    document.getElementById('WareHouseDiv').style.display = "block"
 	}
     openFilterSearch = () => {
 		document.getElementById("filter_search").style.display = "block"
@@ -114,7 +139,7 @@ class Search extends Component {
 		document.getElementById("filter_search").style.display = "none"
 	}
     render(){
-        const { SearchResults, SearchUnitdetails, SearchNearLocations, SelarchFileterName} = this.state
+        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName} = this.state
         return(
             <div className="green-skin">
                  <div className="header header-light">
@@ -244,15 +269,6 @@ class Search extends Component {
             lng: -96.8298850000
           }}
         >
-             {
-                                    SearchUnitdetails.length ?
-									SearchUnitdetails
-									.map(SearchDetail => 
-            <Marker
-    title={'The marker`s title will appear as a tooltip.'}
-    name={'SOMA'}
-    position={{lat:SearchDetail.latitude, lng: SearchDetail.longitude}} />
-                                    ) :null }
   <Marker
     name={'Dolores park'}
     position={{lat: 32.7936010000, lng: -96.7212950000}} />
@@ -389,25 +405,22 @@ class Search extends Component {
                  <p>Unit Size Guide</p>
              </div>
          </div>
-         <div className="row narrow-search-block">
-         <div className="form-check-inline">
-  <label className="form-check-label">
-    <input type="radio" className="form-check-input" name="optradio" onClick={this.ClimateControll}/> Climate Controlled</label>
-</div>
-<div className="form-check-inline">
-  <label className="form-check-label">
-    <input type="radio" className="form-check-input" name="optradio" onClick={this.VehicleStore}/> Vehicle Storage</label>
-</div>
-<div className="form-check-inline disabled">
-  <label className="form-check-label">
-    <input type="radio" className="form-check-input" name="optradio" onClick={this.DriveUp}/> Drive-Up Access  </label>
-</div>
-<div className="form-check-inline disabled">
-  <label className="form-check-label">
-    <input type="radio" className="form-check-input" name="optradio" onClick={this.WarehouseOffice}/> Warehouse/Office</label>
-</div>
+         <div className="row">
+                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <button className="btn btn-block cust-btn"  onClick={this.ClimateControll}> Climate Controlled</button>
+                </div>
+                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <button className="btn btn-block cust-btn"   onClick={this.VehicleStore}> Vehicle Storage</button>
+                </div>
+                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <button className="btn btn-block cust-btn"   onClick={this.DriveUp}> Drive-Up Access  </button>
+                </div> 
+                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <button className="btn btn-block cust-btn"   onClick={this.WarehouseOffice}> Warehouse/Office</button>
+                </div>
+                <p onClick={this.ShowAll} style={{marginLeft:"20px"}}>Clear All Filters</p>
              
-         </div>
+        </div>     
          <div className="filter_search_opt" style={{height:"400px", position:"relative"}}>
                         
                         <Map
@@ -423,7 +436,7 @@ class Search extends Component {
                             
                         </div>
          <div className="row">
-                    <div className="col-md-12 col-lg-12 sizes-block">
+                    <div className="col-md-12 col-lg-12 sizes-block" >
                         <div className="row">
                         <div className="col-md-8 col-lg-8">
                         <h3>Select a Facility Below</h3>
@@ -433,25 +446,25 @@ class Search extends Component {
                             <label  className="col-sm-4 col-form-label">Sort by</label>
                             <div className="col-sm-8">
                             <select className="form-control select-style" id="sort">
-                              <option>Vehicle Storage</option>
+                             {/*  <option>Vehicle Storage</option>
                               <option>Driveup Storage</option>
                               <option>Climate Control</option>
-                              <option>Warehouse/Office</option>
+                              <option>Warehouse/Office</option> */}
                             </select>
                             </div>
                             </div>
                          </div>
                          </div>
-                         <hr/>
+                         <div id="RegularDiv" >
                          {
                         SearchResults.length ?
 						SearchResults
                         .map((SearchResult, index) => 
-                        <div className="row bdr-btm">										
-                            <div className="col-lg-1 col-md-1 map-icon-text">{index+1}</div>
+                        <div className="row bdr-btm">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
-                                <p className="lh-16">{SearchResult.content.address}</p>
+                                <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
                                 <div className="listing-rating">
                                 <i className="fa fa-star filled"></i>
                                 <i className="fa fa-star filled"></i>
@@ -472,12 +485,161 @@ class Search extends Component {
                             </div>
                             <div className="col-md-2 col-lg-2 p-0 mt-3">
                             <a href={'/facility-result/'+SearchResult.locationCode} className="btn btn-block cust-btn">View Facility</a>
-                                <p className="act-fast">Act Fast : 1 Unit Left!</p>
                             </div>
-                        </div>
-                        )
+                        </div> 
+                    )
                         :null
                         }
+                        </div>
+                    
+                         <div id="ClimateDiv"  style={{display:"none"}}>
+                         {
+                        SearchResults.length ?
+						SearchResults
+                        .filter(filterresult => filterresult.content.climate == true)
+                        .map((SearchResult, index) => 
+                        <div className="row bdr-btm">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-5 col-md-5 p-0">
+                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
+                                <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
+                                <div className="listing-rating">
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                </div>
+                                <p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
+                            </div>
+                            <div className="col-lg-1 col-md-1 p-0">
+                                
+                            </div>
+                            <div className="col-lg-3 col-md-3 P-0">
+                                <div className="price-enable-block">
+                                            <p>STARTING AT</p>
+                                            <h4>$ 27</h4>
+                                            </div>
+                            </div>
+                            <div className="col-md-2 col-lg-2 p-0 mt-3">
+                            <a href={'/facility-result/'+SearchResult.locationCode} className="btn btn-block cust-btn">View Facility</a>
+                            </div>
+                        </div> 
+                    )
+                        :null
+                        }
+                        </div>
+                        <div id="DriveupDiv"  style={{display:"none"}}>
+                         {
+                        SearchResults.length ?
+						SearchResults
+                        .filter(filterresult => filterresult.content.driveup == true)
+                        .map((SearchResult, index) => 
+                        <div className="row bdr-btm">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-5 col-md-5 p-0">
+                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
+                                <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
+                                <div className="listing-rating">
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                </div>
+                                <p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
+                            </div>
+                            <div className="col-lg-1 col-md-1 p-0">
+                                
+                            </div>
+                            <div className="col-lg-3 col-md-3 P-0">
+                                <div className="price-enable-block">
+                                            <p>STARTING AT</p>
+                                            <h4>$ 27</h4>
+                                            </div>
+                            </div>
+                            <div className="col-md-2 col-lg-2 p-0 mt-3">
+                            <a href={'/facility-result/'+SearchResult.locationCode} className="btn btn-block cust-btn">View Facility</a>
+                            </div>
+                        </div> 
+                    )
+                        :null
+                        }
+                        </div>
+                        <div id="VehicleDiv"  style={{display:"none"}}>
+                         {
+                        SearchResults.length ?
+						SearchResults
+                        .filter(filterresult => filterresult.content.vehicle == true)
+                        .map((SearchResult, index) => 
+                        <div className="row bdr-btm">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-5 col-md-5 p-0">
+                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
+                                <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
+                                <div className="listing-rating">
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                </div>
+                                <p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
+                            </div>
+                            <div className="col-lg-1 col-md-1 p-0">
+                                
+                            </div>
+                            <div className="col-lg-3 col-md-3 P-0">
+                                <div className="price-enable-block">
+                                            <p>STARTING AT</p>
+                                            <h4>$ 27</h4>
+                                            </div>
+                            </div>
+                            <div className="col-md-2 col-lg-2 p-0 mt-3">
+                            <a href={'/facility-result/'+SearchResult.locationCode} className="btn btn-block cust-btn">View Facility</a>
+                            </div>
+                        </div> 
+                    )
+                        :null
+                        }
+                        </div>
+                        <div id="WareHouseDiv"  style={{display:"none"}}>
+                         {
+                        SearchResults.length ?
+						SearchResults
+                        .filter(filterresult => filterresult.content.warehouse_office == true)
+                        .map((SearchResult, index) => 
+                        <div className="row bdr-btm">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-5 col-md-5 p-0">
+                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
+                                <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
+                                <div className="listing-rating">
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                <i className="fa fa-star filled"></i>
+                                </div>
+                                <p className="review-txt">{Math.floor(Math.random() * 200) + 200} Reviews</p>
+                            </div>
+                            <div className="col-lg-1 col-md-1 p-0">
+                                
+                            </div>
+                            <div className="col-lg-3 col-md-3 P-0">
+                                <div className="price-enable-block">
+                                            <p>STARTING AT</p>
+                                            <h4>$ 27</h4>
+                                            </div>
+                            </div>
+                            <div className="col-md-2 col-lg-2 p-0 mt-3">
+                            <a href={'/facility-result/'+SearchResult.locationCode} className="btn btn-block cust-btn">View Facility</a>
+                            </div>
+                        </div> 
+                    )
+                        :null
+                        }
+                        </div>
                     </div>
                     <p>*Excludes administrative and insurance fees</p>
                  

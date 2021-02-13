@@ -75,9 +75,31 @@ class SearchResult extends Component {
 	}
 	
 	FilterText = (event) => {
-		alert("file Value", event.target.value)
-		//this.setState({fileterName: fname})
-		this.setState({fileterName: event.target.value})
+		console.log("file Value", event.target.value)
+		if(event.target.value=="PriceL"){
+			document.getElementById('PriceLDiv').style.display="block"
+			document.getElementById('PriceHDiv').style.display="none"
+			document.getElementById('SpaceLDiv').style.display="none"
+			document.getElementById('SpaceHDiv').style.display="none"
+		}
+		if(event.target.value=="Price High to Low"){
+			document.getElementById('PriceLDiv').style.display="none"
+			document.getElementById('PriceHDiv').style.display="block"
+			document.getElementById('SpaceLDiv').style.display="none"
+			document.getElementById('SpaceHDiv').style.display="none"
+		}
+		if(event.target.value=="SpaceH"){
+			document.getElementById('PriceLDiv').style.display="none"
+			document.getElementById('PriceHDiv').style.display="none"
+			document.getElementById('SpaceLDiv').style.display="block"
+			document.getElementById('SpaceHDiv').style.display="none"
+		}
+		if(event.target.value=="Space High to Low"){
+			document.getElementById('PriceLDiv').style.display="none"
+			document.getElementById('PriceHDiv').style.display="none"
+			document.getElementById('SpaceLDiv').style.display="none"
+			document.getElementById('SpaceHDiv').style.display="block"
+		}
 	}
 	DriveUp = () =>{
 		
@@ -332,8 +354,8 @@ class SearchResult extends Component {
 							<div className="col-sm-8">
 							<select className="form-control select-style" id="sort" onChange={this.FilterText} value={this.state.value}>
 								<option value="">Sort Value</option>
-						      <option value="PriceH">Price Low to High</option>
-						      <option vale="PriceL">Price High to Low</option>
+						      <option value="PriceL">Price Low to High</option>
+						      <option vale="PriceH">Price High to Low</option>
 							  <option value="SpaceH">Space Low to High</option>
 						      <option vale="SpaceL">Space High to Low</option>
 						    </select>
@@ -371,6 +393,7 @@ class SearchResult extends Component {
 									<h3>Most Popular Sizes</h3>
 									<div className="row bdr-btm">										
 									<div className="detail-listing">
+										<div id="PriceLDiv">
                                     {
                                     unitdetails.length ?
 									unitdetails
@@ -411,11 +434,7 @@ class SearchResult extends Component {
                                     ) : 
                                     null
                                 }
-                                </div>
-							</div>
-							</div>
-	
-								<div className="col-md-12 col-lg-12">
+								<div className="col-md-12 col-lg-12" style={{marginTop:"30px"}}>
 									<h3>All Other Available Sizes</h3>
                                     <div className="detail-listing">
                                     {
@@ -460,131 +479,277 @@ class SearchResult extends Component {
                                     null
                                 }
                                 </div>
-									{/* <div className="row bdr-btm">										
+								</div>
+								</div>
+								<div id="PriceHDiv" style={{display:"none"}}>
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									.sort((a, b) => a.webRate > b.webRate ? -1 : 1)
+									.slice(0, 2)
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
 										<div className="col-md-3 col-lg-3 p-0">
 											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
 											</ul>
 										
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
-											<h4>$59</h4>
+											<h4>${detail.webRate}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
-											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
+											<p className="act-fast">Act Fast : 1 Unit Left!</p>
 										</div>
 									</div>
-									<div className="row bdr-btm">										
+                                    ) : 
+                                    null
+                                }
+								<div className="col-md-12 col-lg-12" style={{marginTop:"30px"}}>
+									<h3>All Other Available Sizes</h3>
+                                    <div className="detail-listing">
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									 .filter(detail=> {
+										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+									}) 
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
 										<div className="col-md-3 col-lg-3 p-0">
 											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
 											</ul>
 										
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
-											<h4>$59</h4>
+											<h4>${detail.webRate}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
 											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
 										</div>
 									</div>
-									<div className="row bdr-btm">										
+                                    ) : 
+                                    null
+                                }
+                                </div>
+								</div>
+								</div>
+								<div id="SpaceHDiv" style={{display:"none"}}>
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									.sort((a, b) => a.unitWidth > b.unitWidth ? -1 : 1)
+									.slice(0, 2)
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
 										<div className="col-md-3 col-lg-3 p-0">
 											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
 											</ul>
 										
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
-											<h4>$59</h4>
+											<h4>${detail.webRate}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
-											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
+											<p className="act-fast">Act Fast : 1 Unit Left!</p>
 										</div>
 									</div>
-									<div className="row bdr-btm">										
+                                    ) : 
+                                    null
+                                }
+								<div className="col-md-12 col-lg-12" style={{marginTop:"30px"}}>
+									<h3>All Other Available Sizes</h3>
+                                    <div className="detail-listing">
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									 .filter(detail=> {
+										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+									}) 
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
 										<div className="col-md-2 col-lg-2 p-2 text-center">
-											<img className="img-responsive img-bdr" src={require('../assets/img/city-6.jpg').default} alt=""/>
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
 											<a href="!#" className="size-help">Size Help</a>
 										</div>
-										<div className="col-md-1 col-lg-1 p-0 large-text">5'x10' LARGE</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
 										<div className="col-md-3 col-lg-3 p-0">
 											<ul className="features-list-ul">
-												<li>Climate Controlled</li>
-												<li>Indoor</li>
-												<li>Elevator Access</li>
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
 											</ul>
 										
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
-											<h4>$483</h4>
+											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
-											<h4>$59</h4>
+											<h4>${detail.webRate}</h4>
 										</div>
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
-											<button className="btn btn-block cust-btn">Rent Now</button>
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
 											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
 										</div>
 									</div>
-								 */}</div>
+                                    ) : 
+                                    null
+                                }
+                                </div>
+								</div>
+								</div>
+								<div id="SpaceLDiv" style={{display:"none"}}>
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									.sort((a, b) => a.unitWidth > b.unitWidth ? 1 : -1)
+									.slice(0, 2)
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
+										<div className="col-md-2 col-lg-2 p-2 text-center">
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
+											<a href="!#" className="size-help">Size Help</a>
+										</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
+										<div className="col-md-3 col-lg-3 p-0">
+											<ul className="features-list-ul">
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
+											</ul>
+										
+										</div>
+										<div className="col-md-2 col-lg-2 p-1">
+											<div className="price-disable-block">
+											<p>IN-STORE</p>
+											<h4>${(detail.webRate)*1.5}</h4>
+										</div>
+										</div>
+										<div className="col-md-2 col-lg-2 p-1">
+											<div className="price-enable-block">
+											<p>WEB RATE</p>
+											<h4>${detail.webRate}</h4>
+										</div>
+										</div>
+										<div className="col-md-2 col-lg-2 p-0 mt-3">
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
+											<p className="act-fast">Act Fast : 1 Unit Left!</p>
+										</div>
+									</div>
+                                    ) : 
+                                    null
+                                }
+								<div className="col-md-12 col-lg-12" style={{marginTop:"30px"}}>
+									<h3>All Other Available Sizes</h3>
+                                    <div className="detail-listing">
+                                    {
+                                    unitdetails.length ?
+									unitdetails
+									 .filter(detail=> {
+										return detail.unitSize.toLowerCase().indexOf(fileterName.toLocaleLowerCase()) >=0
+									}) 
+									.map(detail => 
+									<div className="row bdr-btm"key= {detail.firstAvailableUnitID} >										
+										<div className="col-md-2 col-lg-2 p-2 text-center">
+											<img className="img-responsive img-bdr" src={'https://s3.us-east-2.amazonaws.com/gvstorage/prod/img/locations/'+detail.locationCode+'.png'} alt=""/>
+											<a href="!#" className="size-help">Size Help</a>
+										</div>
+										<div className="col-md-1 col-lg-1 p-0 large-text">{detail.unitSize} LARGE</div>
+										<div className="col-md-3 col-lg-3 p-0">
+											<ul className="features-list-ul">
+												<li>{detail.unitTypeName}</li>
+												<li>{detail.floor}</li>
+												<li>{detail.entryLocation}</li>
+											</ul>
+										
+										</div>
+										<div className="col-md-2 col-lg-2 p-1">
+											<div className="price-disable-block">
+											<p>IN-STORE</p>
+											<h4>${(detail.webRate)*1.5}</h4>
+										</div>
+										</div>
+										<div className="col-md-2 col-lg-2 p-1">
+											<div className="price-enable-block">
+											<p>WEB RATE</p>
+											<h4>${detail.webRate}</h4>
+										</div>
+										</div>
+										<div className="col-md-2 col-lg-2 p-0 mt-3">
+										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
+											<p className="act-fast">Acc Fast : 1 Unit Left!</p>
+										</div>
+									</div>
+                                    ) : 
+                                    null
+                                }
+                                </div>
+								</div>
+								</div>
+                                </div>
+							</div>
+							</div>
+	
+								
 
 								<div className="col-lg-12 p-0">
 									<div className="description-block">

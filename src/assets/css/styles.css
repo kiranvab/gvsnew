@@ -41,9 +41,12 @@
 }
 }
 .storage-listing {
-  height: 250px; 
   min-height: 250px; 
   margin-bottom:50px
+}
+.right-bdr
+{
+  min-height:120px;
 }
 .detail-listing{
 min-height: 1px;  
