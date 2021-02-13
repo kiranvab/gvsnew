@@ -105,8 +105,8 @@ class Home extends Component {
 			<div className="image-cover hero-banner home-banner">
 				<div className="container" style={{position: "relative", top: "150px"}}>
 
-					<h1 className="big-header-capt mb-0">Reserve and Rent from Home</h1>
-					<p className="text-center mb-5">Extra savings! See Facilities Details</p>
+					<h1 className="big-header-capt mb-0" style={{color:"white"}}>Reserve and Rent from Home</h1>
+					<p className="text-center mb-5" style={{color:"white"}}>Extra savings! See Facilities Details</p>
 					
 					<div className="full-search-2 eclip-search italian-search hero-search-radius">
 						<div className="hero-search-content">
@@ -139,7 +139,7 @@ class Home extends Component {
 					</div>
 					<div className="row quick-search">
 						<div className="col-md-2 col-lg-2">
-							<strong>Qucik Search :</strong>
+							<strong>Qucik Search </strong>
 						</div>
 						<div className="col-md-10 col-lg-10">
 							<div className="row">

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import axios from 'axios';
 import '../assets/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,7 +15,8 @@ class Search extends Component {
 			SearchUnitdetails:[],
 			SearchNearLocations:[],
 			SearchFilterName :"",
-            name : {}
+            name : {},
+            isOpen:false,
 		}
     }
     componentDidMount(props) {
@@ -29,6 +30,7 @@ class Search extends Component {
             var siteId = response.data.siteLocations[0].locationCode
             console.log("Site ID:", siteId)
             axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
+          //  axios.get("/units/"+siteId)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({SearchUnitdetails: Myresponse.data.units})
@@ -138,8 +140,11 @@ class Search extends Component {
 	closeFilterSearch=()=> {
 		document.getElementById("filter_search").style.display = "none"
 	}
+    handleToggleOpen = () => {
+        this.setState({isOpen: !this.state.isOpen})
+    }
     render(){
-        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName} = this.state
+        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName, isOpen} = this.state
         return(
             <div className="green-skin">
                  <div className="header header-light">
@@ -269,18 +274,17 @@ class Search extends Component {
             lng: -96.8298850000
           }}
         >
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.7936010000, lng: -96.7212950000}} />
-  <Marker />
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.9053360000, lng: -96.7101990000}} />
-  <Marker />
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.7917520000, lng: -96.6098200000}} />
-  <Marker />
+   {
+                SearchResults.map((marker, index) =>(
+                    <Marker
+    key={marker.address}
+    position={{lat: marker.latitude, lng: marker.longitude}}
+    icon = 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png' 
+    > 
+  </Marker>
+                ))
+            }
+  
             </Map>
                         
                     </div>
@@ -431,19 +435,19 @@ class Search extends Component {
             lat: 32.8087390000,
             lng: -96.8298850000
           }}
+          backgroundColor='#111'
         >
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.7936010000, lng: -96.7212950000}} />
-  <Marker />
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.9053360000, lng: -96.7101990000}} />
-  <Marker />
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 32.7917520000, lng: -96.6098200000}} />
-  <Marker />
+   {
+                SearchResults.map((marker, index) =>(
+                    <Marker
+    key={marker.address}
+    position={{lat: marker.latitude, lng: marker.longitude}}
+    icon = 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png' 
+    >  
+  </Marker>
+                ))
+            }
+  
             </Map>
                             
                         </div>
@@ -473,8 +477,8 @@ class Search extends Component {
 						SearchResults
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
-                            <div className="col-lg-5 col-md-5 p-0">
+                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-5 col-md-5 col-10 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
                                 <div className="listing-rating">
