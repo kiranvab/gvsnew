@@ -35,8 +35,8 @@ class Search extends Component {
             this.setState({SearchResults: response.data.siteLocations})	
             var siteId = response.data.siteLocations[0].locationCode
             console.log("Site ID:", siteId)
-            //axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
-           axios.get("/units/"+siteId)
+            axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
+           //axios.get("/units/"+siteId)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({SearchUnitdetails: Myresponse.data.units})
