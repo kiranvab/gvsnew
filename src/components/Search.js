@@ -35,8 +35,8 @@ class Search extends Component {
             this.setState({SearchResults: response.data.siteLocations})	
             var siteId = response.data.siteLocations[0].locationCode
             console.log("Site ID:", siteId)
-            axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
-           // axios.get("/units/"+siteId)
+            //axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
+           axios.get("/units/"+siteId)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({SearchUnitdetails: Myresponse.data.units})
@@ -133,10 +133,17 @@ class Search extends Component {
 		document.getElementById("filter_search").style.display = "none"
 	}
     handleToggleOpen = () => {
+        alert("hi")
         this.setState({isOpen: !this.state.isOpen})
     }
     render(){
-        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName, isOpen, Maplat, Maplng} = this.state
+        const { SearchResults, 
+            SearchUnitdetails, 
+            SearchNearLocations, 
+            SearchFilterName,
+            isOpen, 
+            Maplat, 
+            Maplng} = this.state
         return(
             <div className="green-skin">
                  <div className="header header-light">
@@ -266,15 +273,24 @@ class Search extends Component {
             lng: -96.8298850000
           }}
         >
-   {
+   {            SearchResults.length ?
                 SearchResults.map((marker, index) =>(
                     <Marker
-    key={marker.address}
-    position={{lat: marker.latitude, lng: marker.longitude}}
-    icon = 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png' 
-    > 
-  </Marker>
-                ))
+                        key={index}
+                        id={index}
+                        position={{lat: marker.latitude, lng: marker.longitude}}
+                        icon={{
+                            url: require('../assets/img/map-icon-new.png').default,
+                        }}
+                        onClick={() => this.handleToggleOpen()}
+                        > 
+                         {this.state.isOpen && (
+              <InfoWindow onCloseClick={() => this.handleToggleClose()}>
+                <span>Something</span>
+              </InfoWindow>
+            )}
+                    </Marker>
+                )) : null
             }
   
             </Map>
@@ -384,17 +400,20 @@ class Search extends Component {
             lat:  32.808739000,
             lng: -96.8298850000
           }}
-          backgroundColor='#111'
         >
-   {
+   {            SearchResults.length ?
                 SearchResults.map((marker, index) =>(
                     <Marker
-    key={marker.address}
-    position={{lat: marker.latitude, lng: marker.longitude}}
-    icon = 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png' 
-    >  
-  </Marker>
-                ))
+                        key={index}
+                        id={index}
+                        position={{lat: marker.latitude, lng: marker.longitude}}
+                        icon={{
+                            url: require('../assets/img/map-icon-new.png').default,
+                        }}
+                        label= {index+1}
+                        > 
+                    </Marker>
+                )) : null
             }
   
             </Map>
