@@ -298,7 +298,7 @@ class Search extends Component {
                 <div className="row">
 
                     <div className="col-lg-12 col-md-12">
-                            <h4>Extra Space Storage Facilities Near 78702</h4>
+                            <h4>Extra Space Storage Facilities Near {this.props.match.params.zip }</h4>
                             <h6>Best Prices Near You</h6>
                     </div>
                    
@@ -461,7 +461,7 @@ class Search extends Component {
 						SearchResults
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
