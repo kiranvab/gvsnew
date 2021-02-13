@@ -103,7 +103,7 @@ class Home extends Component {
                 </div>
 
 			<div className="image-cover hero-banner home-banner">
-				<div className="container" style={{position: "relative", top: "150px"}}>
+				<div className="container" style={{position: "relative", top: "100px"}}>
 
 					<h1 className="big-header-capt mb-0" style={{color:"white"}}>Reserve and Rent from Home</h1>
 					<p className="text-center mb-5" style={{color:"white"}}>Extra savings! See Facilities Details</p>
@@ -138,27 +138,27 @@ class Home extends Component {
 
 					</div>
 					<div className="row quick-search">
-						<div className="col-md-2 col-lg-2">
+						<div className="col-md-2 col-lg-2 col-12 p-0">
 							<strong>Qucik Search </strong>
 						</div>
 						<div className="col-md-10 col-lg-10">
 							<div className="row">
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/newyork'}>NewYork</a>
 								</div>
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/sanfransisco'}>San Francisco</a>
 								</div>
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/chicago'}>Chicago</a>
 								</div>
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/losangeles'}>Los Angeles</a>
 								</div>
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/miami'}>Miami</a>
 								</div>
-								<div className="col-md-2 col-lg-2 p-0">
+								<div className="col-md-2 col-lg-2 col-6 p-0">
 									<a href={'/search-result/austin'}>Austin</a>
 								</div>
 							</div>

@@ -412,7 +412,7 @@ class SearchResult extends Component {
 										</div>
 										<div className="col-md-2 col-lg-2 p-0 mt-3">
 										<a href={'/rent-now/'+detail.firstAvailableUnitID} className="btn btn-block cust-btn">Rent Now</a>
-											<p className="act-fast">Act Fast : 1 Unit Left!</p>
+											{/* <p className="act-fast">Act Fast : 1 Unit Left!</p> */}
 										</div>
 									</div>
                                     ) : 
