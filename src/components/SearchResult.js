@@ -39,21 +39,6 @@ class SearchResult extends Component {
 		let zip = document.getElementById('zipCode').value
 		this.setState({ZipValue:zip})
 		}
-   /*  handleClick = () =>{
-        let zip = document.getElementById('zipCode').value
-        //alert("I'm working on"+zip);
-		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
-		//axios.get("/search/"+zip)
-        .then(response =>{ 
-			console.log(response)
-			console.log(response.data.siteLocations[0].content.gvsnearsites)
-			this.setState({results: response.data.siteLocations})
-			this.setState({nearLocations: response.data.siteLocations[0].content.gvsnearsites})
-        })
-        .catch(error => {
-            console.log(error)
-        })
-	} */
 	openFilterSearch = () => {
 		document.getElementById("filter_search").style.display = "block"
 	}
@@ -241,7 +226,7 @@ class SearchResult extends Component {
 							
 								<div className="search-sidebar_header">
 									<h4 className="ssh_heading">Close Filter</h4>
-									<button className="w3-bar-item w3-button w3-large"><i className="ti-close"></i></button>
+									<button className="w3-bar-item w3-button w3-large" style={{borderRadius:"50%"}}><i className="ti-close"></i></button>
 								</div>
 								
 								<div className="sidebar-widgets">
@@ -253,7 +238,7 @@ class SearchResult extends Component {
 						
 						<div className="col-lg-12 col-md-12">
 							<div className="filter_search_opt">
-								<a href="!#" onClick={this.openFilterSearch}>Find the right storage:<i className="ml-2 ti-menu"></i></a>
+								<a onClick={this.openFilterSearch}>Find the right storage:<i className="ml-2 ti-menu"></i></a>
 							</div>
 						</div>
 						</div>
@@ -290,7 +275,6 @@ class SearchResult extends Component {
 													<div className="col-md-5 col-lg-5 right-bdr">
 														<h6>{results.city} Self Storage</h6>
 														<p>{UnitContent.address}</p>
-														{/* <button className="btn btn-block direction-btn" onClick={() => this.getDetils(unit.locationCode)}> View Facility</button> */}
 											<div className="listing-rating">
 												<i className="fa fa-star filled"></i>
 												<i className="fa fa-star filled"></i>
@@ -321,15 +305,15 @@ class SearchResult extends Component {
 					   <div className="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab" style={{marginTop:"5%"}}>
                  			<div className="col-lg-12 col-md-12 p-0">
                  	<div className="row">
-                 		<div className="col-md-6 col-lg-6">
+                 		<div className="col-md-12 col-lg-12">
                  			<h4>Narrow Your Search</h4>
                  		</div>
-                 		<div className="col-md-6 col-lg-6 text-right text-12">
+                 		{/* <div className="col-md-6 col-lg-6 text-right text-12">
                  			<p>Unit Size Guide</p>
-                 		</div>
+                 		</div> */}
                  	</div>
                  	<div className="row narrow-search-block">
-    			<div className="col-md-2 col-lg-2 p-1">
+    			{/* <div className="col-md-2 col-lg-2 p-1">
 				    <select className="form-control select-style" id="Features">
 				      <option>Features</option>
 				      <option>Features</option>
@@ -346,14 +330,14 @@ class SearchResult extends Component {
 						      <option>Vehicle Storage</option>
 						      <option>Vehicle Storage</option>
 						    </select>
-                 		</div>
+                 		</div> */}
                  		<div className="col-md-3 col-lg-3"></div>
                  		<div className="col-md-4 col-lg-4 p-1 text-right">
 							<div className="form-group row">
-							<label className="col-sm-4 col-form-label">Sort by</label>
+							{/* <label className="col-sm-4 col-form-label">Sort by</label> */}
 							<div className="col-sm-8">
 							<select className="form-control select-style" id="sort" onChange={this.FilterText} value={this.state.value}>
-								<option value="">Sort Value</option>
+								<option value="">Sort By</option>
 						      <option value="PriceL">Price Low to High</option>
 						      <option vale="PriceH">Price High to Low</option>
 							  <option value="SpaceH">Space Low to High</option>
@@ -370,16 +354,16 @@ class SearchResult extends Component {
 									 <div className="col-md-4 col-lg-4 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.ShowAll} >Show All</button>
 										</div>
-                 						<div className="col-md-2 col-lg-2 p-1 mt-2">
+                 						<div className="col-md-2 col-lg-2 col-6 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.ClimateControll} >Small</button>
 										</div>
-										<div className="col-md-2 col-lg-2 p-1  mt-2">
+										<div className="col-md-2 col-lg-2 col-6 p-1  mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.VehicleStore}>Medium</button>
 										</div>
-										<div className="col-md-2 col-lg-2 p-1 mt-2">
+										<div className="col-md-2 col-lg-2 col-6 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.DriveUp}>Large</button>
 										</div>
-										<div className="col-md-2 col-lg-2 p-1 mt-2">
+										<div className="col-md-2 col-lg-2 col-6 p-1 mt-2">
 											<button className="btn btn-block cust-btn" onClick={this.WarehouseOffice}>Huge</button>
 										</div>
                  					</div>
@@ -414,13 +398,13 @@ class SearchResult extends Component {
 											</ul>
 										
 										</div>
-										<div className="col-md-2 col-lg-2 p-1">
+										<div className="col-md-2 col-lg-2 col-6 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
 											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
-										<div className="col-md-2 col-lg-2 p-1">
+										<div className="col-md-2 col-lg-2 col-6 p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
 											<h4>${detail.webRate}</h4>
@@ -458,13 +442,13 @@ class SearchResult extends Component {
 											</ul>
 										
 										</div>
-										<div className="col-md-2 col-lg-2 p-1">
+										<div className="col-md-2 col-lg-2 col-6 p-1">
 											<div className="price-disable-block">
 											<p>IN-STORE</p>
 											<h4>${(detail.webRate)*1.5}</h4>
 										</div>
 										</div>
-										<div className="col-md-2 col-lg-2 p-1">
+										<div className="col-md-2 col-lg-2 col-6  p-1">
 											<div className="price-enable-block">
 											<p>WEB RATE</p>
 											<h4>${detail.webRate}</h4>

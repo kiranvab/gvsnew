@@ -17,6 +17,8 @@ class Search extends Component {
 			SearchFilterName :"",
             name : {},
             isOpen:false,
+            Maplat:"",
+            Maplng:""
 		}
     }
     componentDidMount(props) {
@@ -26,11 +28,15 @@ class Search extends Component {
 		//axios.get("/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
+            console.log("Latitude:",response.data.siteLocations[0].latitude)
+            console.log("Longitude:",response.data.siteLocations[0].longitude)
+            this.setState({Maplat: response.data.siteLocations[0].latitude})
+            this.setState({Maplng: response.data.siteLocations[0].longitude})
             this.setState({SearchResults: response.data.siteLocations})	
             var siteId = response.data.siteLocations[0].locationCode
             console.log("Site ID:", siteId)
             axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
-          //  axios.get("/units/"+siteId)
+           // axios.get("/units/"+siteId)
         .then(Myresponse =>{ 
             console.log(Myresponse)
             this.setState({SearchUnitdetails: Myresponse.data.units})
@@ -42,25 +48,9 @@ class Search extends Component {
         .catch(error => {
             console.log(error)
         })
-		/* axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/L079")
-		//axios.get("/units/L079")
-        .then(Myresponse =>{ 
-            console.log(Myresponse)
-            this.setState({SearchUnitdetails: Myresponse.data.units})
-        })
-        .catch(error => {
-            console.log(error)
-        }) */
+		
         this.setState({SearchFilterName: ""})
-       /* //axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
-		axios.get("/search/554477")
-        .then(Syresponse =>{ 
-            console.log(Syresponse)
-            this.setState({SearchNearLocations: Syresponse.data.siteLocations[0].content.gvsnearsites})
-        })
-        .catch(error => {
-            console.log(error)
-        }) */
+       
     }
 
     handleClick = () =>{
@@ -73,6 +63,8 @@ class Search extends Component {
 			console.log(response.data.siteLocations[0].content.gvsnearsites)
 			this.setState({SearchResults: response.data.siteLocations})
 			this.setState({SearchNearLocations: response.data.siteLocations[0].content.gvsnearsites})
+            this.setState({Maplat: response.data.siteLocations[0].latitude})
+            this.setState({Maplng: response.data.siteLocations[0].longitude})
         })
         .catch(error => {
             console.log(error)
@@ -144,7 +136,7 @@ class Search extends Component {
         this.setState({isOpen: !this.state.isOpen})
     }
     render(){
-        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName, isOpen} = this.state
+        const { SearchResults, SearchUnitdetails, SearchNearLocations, SearchFilterName, isOpen, Maplat, Maplng} = this.state
         return(
             <div className="green-skin">
                  <div className="header header-light">
@@ -267,10 +259,10 @@ class Search extends Component {
                         
                     <Map
           google={this.props.google}
-          zoom={8}
+          zoom={4}
           onClick={this.onMapClicked}
           initialCenter={{
-            lat: 32.8087390000,
+            lat:  32.808739000,
             lng: -96.8298850000
           }}
         >
@@ -292,7 +284,7 @@ class Search extends Component {
             
                 <div className="col-lg-12 col-md-12">
                     <div className="filter_search_opt">
-                        <a href="!#" onClick={this.openFilterSearch}>Find the right storage:<i className="ml-2 ti-menu"></i></a>
+                        <a onClick={this.openFilterSearch}>Find the right storage:<i className="ml-2 ti-menu"></i></a>
                         
                     </div>
                 </div>
@@ -336,66 +328,23 @@ class Search extends Component {
                                 </div>)
                                 :null
                                 }
-                               {/*  <div className="col-md-4 col-lg-4 p-2">
-                                    <div className="box-bg">
-                                        <h4>Medium</h4>
-                                        <h6>5′ x 5′</h6>
-                                        <div className="row">
-                                        <div className="col-md-6 col-6 col-lg-6 p-1">
-                                            <div className="price-disable-block">
-                                            <p>IN-STORE</p>
-                                            <h4>$483</h4>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 col-6 col-lg-6 p-1">
-                                            <div className="price-enable-block">
-                                            <p>WEBRATE</p>
-                                            <h4>$483</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    </div>
-                                </div>
-                                <div className="col-md-4 col-lg-4 p-2">
-                                    <div className="box-bg">
-                                        <h4>Large</h4>
-                                        <h6>10′ x 10′</h6>
-                                        <div className="row">
-                                        <div className="col-md-6 col-6 col-lg-6 p-1">
-                                            <div className="price-disable-block">
-                                            <p>IN-STORE</p>
-                                            <h4>$483</h4>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 col-6 col-lg-6 p-1">
-                                            <div className="price-enable-block">
-                                            <p>WEBRATE</p>
-                                            <h4>$483</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                    </div>
-                                </div>
- */}
-                                
+                               
                             </div>
-                            <div className="tag-text">no credit card required</div>
+                            {/* <div className="tag-text">no credit card required</div>
                             <div className="tag-text">month-tomonth rent</div>
-                            <div className="tag-text">unit size can be changed at move-in</div>
+                            <div className="tag-text">unit size can be changed at move-in</div> */}
                     
                     </div>
                     </div>
                    
 <div className="container">
 <div className="row">
-<div className="col-md-12 col-lg-12">
+<div className="col-md-12 col-lg-12 p-1">
 <Tabs>
-    <TabList className="nav nav-tabs">
-      <Tab  className="nav-link active">Storage Units</Tab>
-      <Tab className="nav-link ">Features</Tab>
-      <Tab className="nav-link">What Fits Inside</Tab>      
+    <TabList>
+      <Tab>Storage Units</Tab>
+      <Tab>Features</Tab>
+      <Tab>What Fits Inside</Tab>      
     </TabList>
 
   <TabPanel>
@@ -405,21 +354,21 @@ class Search extends Component {
              <div className="col-md-6 col-lg-6">
                  <h4>Narrow Your Search</h4>
              </div>
-             <div className="col-md-6 col-lg-6 text-right text-12">
+             {/* <div className="col-md-6 col-lg-6 text-right text-12">
                  <p>Unit Size Guide</p>
-             </div>
+             </div> */}
          </div>
          <div className="row">
-                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <div className="col-md-2 col-lg-3 col-6  mt-1">
                 <button className="btn btn-block cust-btn"  onClick={this.ClimateControll}> Climate Controlled</button>
                 </div>
-                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <div className="col-md-2 col-lg-3 col-6  mt-1">
                 <button className="btn btn-block cust-btn"   onClick={this.VehicleStore}> Vehicle Storage</button>
                 </div>
-                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <div className="col-md-2 col-lg-3 col-6   mt-1">
                 <button className="btn btn-block cust-btn"   onClick={this.DriveUp}> Drive-Up Access  </button>
                 </div> 
-                <div className="col-md-2 col-lg-3 p-3 mt-2">
+                <div className="col-md-2 col-lg-3 col-6  mt-1">
                 <button className="btn btn-block cust-btn"   onClick={this.WarehouseOffice}> Warehouse/Office</button>
                 </div>
                 <p onClick={this.ShowAll} style={{marginLeft:"20px"}}>Clear All Filters</p>
@@ -429,10 +378,10 @@ class Search extends Component {
                         
          <Map
           google={this.props.google}
-          zoom={8}
+          zoom={4}
           onClick={this.onMapClicked}
           initialCenter={{
-            lat: 32.8087390000,
+            lat:  32.808739000,
             lng: -96.8298850000
           }}
           backgroundColor='#111'
@@ -454,22 +403,19 @@ class Search extends Component {
          <div className="row">
                     <div className="col-md-12 col-lg-12 sizes-block" >
                         <div className="row">
-                        <div className="col-md-8 col-lg-8">
+                        <div className="col-md-12 col-lg-12">
                         <h3>Select a Facility Below</h3>
                         </div>
-                        <div className="col-md-4 col-lg-4 text-right">
+                        {/* <div className="col-md-4 col-lg-4 text-right">
                             <div className="form-group row">
                             <label  className="col-sm-4 col-form-label">Sort by</label>
                             <div className="col-sm-8">
                             <select className="form-control select-style" id="sort">
-                             {/*  <option>Vehicle Storage</option>
-                              <option>Driveup Storage</option>
-                              <option>Climate Control</option>
-                              <option>Warehouse/Office</option> */}
+                            
                             </select>
                             </div>
                             </div>
-                         </div>
+                         </div> */}
                          </div>
                          <div id="RegularDiv" >
                          {
@@ -477,7 +423,7 @@ class Search extends Component {
 						SearchResults
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-2 p-1"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 col-10 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
