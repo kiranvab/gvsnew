@@ -423,16 +423,28 @@ class Search extends Component {
         </div>     
          <div className="filter_search_opt" style={{height:"400px", position:"relative"}}>
                         
-                        <Map
-              google={this.props.google}
-              initialCenter={{
-                lat: 40.854885,
-                lng: -88.081807
-              }}
-              zoom={4}
-              onClick={this.onMapClicked}
-            >
-                </Map>
+         <Map
+          google={this.props.google}
+          zoom={8}
+          onClick={this.onMapClicked}
+          initialCenter={{
+            lat: 32.8087390000,
+            lng: -96.8298850000
+          }}
+        >
+  <Marker
+    name={'Dolores park'}
+    position={{lat: 32.7936010000, lng: -96.7212950000}} />
+  <Marker />
+  <Marker
+    name={'Dolores park'}
+    position={{lat: 32.9053360000, lng: -96.7101990000}} />
+  <Marker />
+  <Marker
+    name={'Dolores park'}
+    position={{lat: 32.7917520000, lng: -96.6098200000}} />
+  <Marker />
+            </Map>
                             
                         </div>
          <div className="row">
@@ -499,7 +511,7 @@ class Search extends Component {
                         .filter(filterresult => filterresult.content.climate == true)
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
@@ -536,7 +548,7 @@ class Search extends Component {
                         .filter(filterresult => filterresult.content.driveup == true)
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
@@ -573,7 +585,7 @@ class Search extends Component {
                         .filter(filterresult => filterresult.content.vehicle == true)
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
@@ -610,7 +622,7 @@ class Search extends Component {
                         .filter(filterresult => filterresult.content.warehouse_office == true)
                         .map((SearchResult, index) => 
                         <div className="row bdr-btm">
-                            <div className="col-lg-1 col-md-1 col-2"><div className="map-icon-text"><p>{index+1}</p></div></div>
+                            <div className="col-lg-1 col-md-1 col-3"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 p-0">
                                 <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>

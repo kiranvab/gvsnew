@@ -15,15 +15,11 @@ class Home extends Component {
             this.setState({ZipValue:"all"})
        
     }
-	handleLoginKeyUp = (e) =>{
-		if (e.key === 'Enter') {
-			let zip = document.getElementById('zipCode').value
-			console.log("Entered Value is:",zip)
-		  }
-		  else{
+	handleLoginKeyUp = () =>{
+		
 			let zip = document.getElementById('zipCode').value
 			this.setState({ZipValue:zip})
-		  }
+		  
 	
 		}
     render(){
@@ -120,7 +116,7 @@ class Home extends Component {
 								<div className="col-lg-9 col-md-9 col-sm-12 small-padd">
 									<div className="form-group">
 										<div className="input-with-icon">
-											<input type="text" className="form-control b-r" id="zipCode"  placeholder="Enter Address, City, Zip Code"onKeyDown={this.handleLoginKeyUp}/>
+											<input type="text" className="form-control b-r" id="zipCode"  placeholder="Enter Address, City, Zip Code"onKeyUp={this.handleLoginKeyUp}/>
 											<i className="ti-location-pin"></i>
 										</div>
 									</div>
