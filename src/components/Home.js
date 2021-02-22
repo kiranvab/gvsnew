@@ -3,7 +3,8 @@ import { Component } from "react";
 import Slider from "react-slick";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../assets/css/styles.css';
-import { Navbar,Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar,Nav, NavDropdown } from 'react-bootstrap';
+import { DropdownSubmenu, NavDropdownMenu} from "react-bootstrap-submenu";
 class Home extends Component {
 	constructor(props) {
         super(props)
@@ -64,14 +65,26 @@ class Home extends Component {
 		
 	<div className="header header-light">
 				<div className="container">
-				<Navbar bg="white" expand="lg">
+<Navbar bg="white" expand="lg">
 <Navbar.Brand href="/">
 <img src={require('./logo.png').default} className="logo" alt="" />
 </Navbar.Brand>
 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 <Navbar.Collapse id="basic-navbar-nav">
 <Nav className="mr-auto">
-<Nav.Link href="/">Locations</Nav.Link>
+<NavDropdown title="Locations" id="basic-nav-dropdown">
+<NavDropdown.Item href={'/search-result/Texas'} style={{background:"#216121", color:"white"}}>Texas</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Tennesse'} style={{background:"#216121", color:"white"}}>Tennesse</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Ohio'} style={{background:"#216121", color:"white"}}>Ohio</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/New York'} style={{background:"#216121", color:"white"}}>New York</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Nevada'} style={{background:"#216121", color:"white"}}>Nevada</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Mississippi'} style={{background:"#216121", color:"white"}}>Mississippi</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Missouri'}style={{background:"#216121", color:"white"}}>Missouri</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Indiana'} style={{background:"#216121", color:"white"}}>Indiana</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Illinois'} style={{background:"#216121", color:"white"}}>Illinois</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/Colorado'} style={{background:"#216121", color:"white"}}>Colorado</NavDropdown.Item>
+<NavDropdown.Item href={'/search-result/California'} style={{background:"#216121", color:"white"}}>California</NavDropdown.Item>
+</NavDropdown>
 <NavDropdown title="Storage Options" id="basic-nav-dropdown">
 <NavDropdown.Item href="!#">Why Choose Us</NavDropdown.Item>
 <NavDropdown.Item href="!#">Personal Storage</NavDropdown.Item>
@@ -469,23 +482,23 @@ class Home extends Component {
 				</div>
 				<div className="col-lg-3 col-md-3">
 					<div className="footer-widget">
-						<h4 className="widget-title">Texas (43)</h4>
+						<h4 className="widget-title">Texas (37)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Austin, TX (3)</a></li>
-							<li><a href="!#">Baytown, TX (3)</a></li>
-							<li><a href="!#">Canyon Lake, TX (3)</a></li>
-							<li><a href="!#">Cedar park, TX (3)</a></li>
-							<li><a href="!#">Dallas, TX (3)</a></li>
-							<li><a href="!#">Deer park, TX (3)</a></li>
-							<li><a href="!#">Fort Worth, TX (3)</a></li>
-							<li><a href="!#">Houston, TX (3)</a></li>
-							<li><a href="!#">La Porte, TX (3)</a></li>
-							<li><a href="!#">Leander, TX (3)</a></li>
-							<li><a href="!#">Mesquite, TX (3)</a></li>
-							<li><a href="!#">Pasadena, TX (3)</a></li>
-							<li><a href="!#">San Benito, TX (3)</a></li>
-							<li><a href="!#">Texas City, TX (3)</a></li>
-							<li><a href="!#">Tomball, TX (3)</a></li>
+							<li><a href={'/search-result/austin'}>Austin, TX (3)</a></li>
+							<li><a href={'/search-result/baytown'}>Baytown, TX (3)</a></li>
+							<li><a href={'/search-result/canyon'}>Canyon Lake, TX (3)</a></li>
+							<li><a href={'/search-result/Cedar park'}>Cedar park, TX (3)</a></li>
+							<li><a href={'/search-result/Dallas'}>Dallas, TX (3)</a></li>
+							<li><a href={'/search-result/Deer park'}>Deer park, TX (3)</a></li>
+							<li><a href={'/search-result/Fort Worth'}>Fort Worth, TX (3)</a></li>
+							<li><a href={'/search-result/Houston'}>Houston, TX (3)</a></li>
+							<li><a href={'/search-result/La Porte'}>La Porte, TX (3)</a></li>
+							<li><a href={'/search-result/Leander'}>Leander, TX (3)</a></li>
+							<li><a href={'/search-result/Mesquite'}>Mesquite, TX (3)</a></li>
+							<li><a href={'/search-result/Pasadena'}>Pasadena, TX (3)</a></li>
+							<li><a href={'/search-result/San Benito'}>San Benito, TX (3)</a></li>
+							<li><a href={'/search-result/Texas'}>Texas City, TX (3)</a></li>
+							<li><a href={'/search-result/omball'}>omball, TX (3)</a></li>
 
 						</ul>
 					</div>
@@ -495,23 +508,23 @@ class Home extends Component {
 					<div className="footer-widget">
 						<h4 className="widget-title">Tennessee (4)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Memphis, TN (4)</a></li>
+							<li><a href={'/search-result/Memphis'}>Memphis, TN (4)</a></li>
 
 						</ul>
 						<h4 className="widget-title">Ohio (16)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Boardman, OH (1)</a></li>
-							<li><a href="!#">Centerville, OH (1)</a></li>
-							<li><a href="!#">Columbus, OH (1)</a></li>
-							<li><a href="!#">Dayton, OH (1)</a></li>
-							<li><a href="!#">Lewis Center, OH (1)</a></li>
-							<li><a href="!#">Mansfield, OH (1)</a></li>
-							<li><a href="!#">Mason, OH (1)</a></li>
-							<li><a href="!#">Miamisburg, OH (1)</a></li>
-							<li><a href="!#">Reynoldsburg, OH (1)</a></li>
-							<li><a href="!#">Trotwood, OH (1)</a></li>
-							<li><a href="!#">Worthington, OH (1)</a></li>
-							<li><a href="!#">Youngstown, OH (1)</a></li>
+							<li><a href={'/search-result/Boardman'}>Boardman, OH (1)</a></li>
+							<li><a href={'/search-result/Centerville'}>Centerville, OH (1)</a></li>
+							<li><a href={'/search-result/Columbus'}>Columbus, OH (1)</a></li>
+							<li><a href={'/search-result/Dayton'}>Dayton, OH (1)</a></li>
+							<li><a href={'/search-result/Lewis Center'}>Lewis Center, OH (1)</a></li>
+							<li><a href={'/search-result/Mansfield'}>Mansfield, OH (1)</a></li>
+							<li><a href={'/search-result/Mason'}>Mason, OH (1)</a></li>
+							<li><a href={'/search-result/Miamisburg'}>Miamisburg, OH (1)</a></li>
+							<li><a href={'/search-result/Reynoldsburg'}>Reynoldsburg, OH (1)</a></li>
+							<li><a href={'/search-result/Trotwood'}>Trotwood, OH (1)</a></li>
+							<li><a href={'/search-result/Worthington'}>Worthington, OH (1)</a></li>
+							<li><a href={'/search-result/Youngstown'}>Youngstown, OH (1)</a></li>
 
 
 						</ul>
@@ -522,22 +535,22 @@ class Home extends Component {
 					<div className="footer-widget">
 						<h4 className="widget-title">New York (2)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Hyde Park, NY (1)</a></li>
-							<li><a href="!#">Newburg, NY (1)</a></li>
+							<li><a href={'/search-result/Hyde Park'}>Hyde Park, NY (1)</a></li>
+							<li><a href={'/search-result/Newburg'}>Newburg, NY (1)</a></li>
 						</ul>
 						<h4 className="widget-title">Nevada (1)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Las Vegas, NV (1)</a></li>
+							<li><a href={'/search-result/Las Vegas'}>Las Vegas, NV (1)</a></li>
 						</ul>
 						<h4 className="widget-title">Mississippi (3)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Brandon, MS (1)</a></li>
-							<li><a href="!#">Flowood, MS (1)</a></li>
-							<li><a href="!#">Hattiesburg, MS (1)</a></li>
+							<li><a href={'/search-result/Brandon'}>Brandon, MS (1)</a></li>
+							<li><a href={'/search-result/Flowood'}>Flowood, MS (1)</a></li>
+							<li><a href={'/search-result/Hattiesburg'}>Hattiesburg, MS (1)</a></li>
 						</ul>
 						<h4 className="widget-title">Missouri (1)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Kansas City, MO (1)</a></li>
+							<li><a href={'/search-result/Kansas'}>Kansas City, MO (1)</a></li>
 						</ul>
 					</div>
 				</div>
@@ -546,21 +559,21 @@ class Home extends Component {
 					<div className="footer-widget">
 						<h4 className="widget-title">Indiana (1)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Indianapolis, IN (1)</a></li>
+							<li><a href={'/search-result/Indianapolis'}>Indianapolis, IN (1)</a></li>
 						</ul>
 						<h4 className="widget-title">Illinois (2)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Champaign, IL (1)</a></li>
-							<li><a href="!#">Urbana, IL (1)</a></li>
+							<li><a href={'/search-result/Champaign'}>Champaign, IL (1)</a></li>
+							<li><a href={'/search-result/Urbana'}>Urbana, IL (1)</a></li>
 						</ul>
 						<h4 className="widget-title">Colorado (2)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Aurora, CO (1)</a></li>
-							<li><a href="!#">Commerce City, CO (1)</a></li>
+							<li><a href={'/search-result/Aurora'}>Aurora, CO (1)</a></li>
+							<li><a href={'/search-result/Commerce City'}>Commerce City, CO (1)</a></li>
 						</ul>
 						<h4 className="widget-title">California (1)</h4>
 						<ul className="footer-menu">
-							<li><a href="!#">Santa Clarita, CA (1)</a></li>
+							<li><a href={'/search-result/Santa'}>Santa Clarita, CA (1)</a></li>
 						</ul>
 					</div>
 				</div>
@@ -572,11 +585,11 @@ class Home extends Component {
 						<div className="footer-widget">
 							<h4 className="widget-title">STORAGE OPTIONS</h4>
 							<ul className="footer-menu">
-								<li><a href="!#">Car Storage</a></li>
-								<li><a href="!#">Boat Storage</a></li>
-								<li><a href="!#">RV Storage</a></li>
-								<li><a href="!#">Business Storage</a></li>
-								<li><a href="!#">Warehouse Storage and Office space</a></li>
+								<li><a href={'/search-result/newyork'}>Car Storage</a></li>
+								<li><a href={'/search-result/newyork'}>Boat Storage</a></li>
+								<li><a href={'/search-result/newyork'}>RV Storage</a></li>
+								<li><a href={'/search-result/newyork'}>Business Storage</a></li>
+								<li><a href={'/search-result/newyork'}>Warehouse Storage and Office space</a></li>
 							</ul>
 						</div>
 					</div>
@@ -585,9 +598,9 @@ class Home extends Component {
 						<div className="footer-widget">
 							<h4 className="widget-title">STORAGE TOOLS</h4>
 							<ul className="footer-menu">
-								<li><a href="!#">Size Guide</a></li>
-								<li><a href="!#">Space Calculator</a></li>
-								<li><a href="!#">Self Stoarge Tips</a></li>
+								<li><a href={'/search-result/newyork'}>Size Guide</a></li>
+								<li><a href={'/search-result/newyork'}>Space Calculator</a></li>
+								<li><a href={'/search-result/newyork'}>Self Stoarge Tips</a></li>
 							</ul>
 						</div>
 					</div>
@@ -596,10 +609,10 @@ class Home extends Component {
 						<div className="footer-widget">
 							<h4 className="widget-title">GREAT VALUE STORAGE</h4>
 							<ul className="footer-menu">
-								<li><a href="!#">Company Info</a></li>
-								<li><a href="!#">About Us</a></li>
-								<li><a href="!#">Contact Us</a></li>
-								<li><a href="!#">Careers</a></li>
+								<li><a href={'/search-result/newyork'}>Company Info</a></li>
+								<li><a href={'/search-result/newyork'}>About Us</a></li>
+								<li><a href={'/search-result/newyork'}>Contact Us</a></li>
+								<li><a href={'/search-result/newyork'}>Careers</a></li>
 							</ul>
 						</div>
 					</div>
