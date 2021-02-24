@@ -19,7 +19,7 @@ class SearchResult extends Component {
 	
     componentDidMount(props) {
 		console.log("web Params ID:",this.props.match.params.id )
-		axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/units/"+this.props.match.params.id)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+this.props.match.params.id)
 		//axios.get("/units/"+this.props.match.params.id)
         .then(Myresponse =>{ 
             console.log(Myresponse)
@@ -48,7 +48,7 @@ class SearchResult extends Component {
 
     getDetils = (locationCode)=>{
         //alert("I'm working on"+locationCode);
-		axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/units/"+locationCode)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
 		//axios.get("/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)

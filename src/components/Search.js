@@ -24,7 +24,7 @@ class Search extends Component {
     componentDidMount(props) {
         console.log("Params ID:" ,this.props.match.params.zip )
         this.setState({name: ''})
-        axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
+        axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+this.props.match.params.zip)
 		//axios.get("/search/"+this.props.match.params.zip)
         .then(response =>{ 
             console.log(response)
@@ -35,7 +35,7 @@ class Search extends Component {
             this.setState({SearchResults: response.data.siteLocations})	
             var siteId = response.data.siteLocations[0].locationCode
             console.log("Site ID:", siteId)
-            axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/units/"+siteId)
+            axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+siteId)
            //axios.get("/units/"+siteId)
         .then(Myresponse =>{ 
             console.log(Myresponse)
@@ -56,7 +56,7 @@ class Search extends Component {
     handleClick = () =>{
         let zip = document.getElementById('zipCode').value
         //alert("I'm working on"+zip);
-		axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/search/"+zip)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/search/"+zip)
 		//axios.get("/search/"+zip)
         .then(response =>{ 
 			console.log(response)
@@ -73,7 +73,7 @@ class Search extends Component {
 
     getDetils = (locationCode)=>{
         //alert("I'm working on"+locationCode);
-		axios.get("https://desolate-tundra-77543.herokuapp.com/gvs/api/units/"+locationCode)
+		axios.get("https://veheal-prod.herokuapp.com/gvs/api/units/"+locationCode)
 		//axios.get("/units/"+locationCode)
         .then(Myresponse =>{ 
             console.log(Myresponse)
@@ -456,7 +456,7 @@ class Search extends Component {
                         <div className="row bdr-btm">
                             <div className="col-lg-1 col-md-1 col-2 p-1"><div className="map-icon-text"><p>{index+1}</p></div></div>
                             <div className="col-lg-5 col-md-5 col-10 p-0">
-                                <h6>Great Value Storage {SearchResult.content.city} {SearchResult.content.statecode}</h6>
+                                <h6>{SearchResult.name}</h6>
                                 <p className="lh-16">{SearchResult.content.address} {SearchResult.content.climate}</p>
                                 <div className="listing-rating">
                                 <i className="fa fa-star filled"></i>
